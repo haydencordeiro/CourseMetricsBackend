@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -26,7 +26,14 @@ class LoginController extends Controller
      *
      * @var string
      */
+    
     protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        return '/student';
+
+    }
+
 
     /**
      * Create a new controller instance.
@@ -42,21 +49,8 @@ class LoginController extends Controller
         
         return 'SID';
     }
-    public function redirectTo() {
+    protected function loggedOut(Request $request) {
+        return redirect(route('login'));
+    }
 
-        return '/student';
-        // $role = Auth::user()->role; 
-        // switch ($role) {
-        //   case 'admin':
-        //     return '/admin_dashboard';
-        //     break;
-        //   case 'seller':
-        //     return '/seller_dashboard';
-        //     break; 
-      
-        //   default:
-        //     return '/home'; 
-        //   break;
-        // }
-      }
 }

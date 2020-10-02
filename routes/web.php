@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('studentHome');
-// })->middleware('auth');
+//     return view('home');
+// });
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/student', [App\Http\Controllers\StudentHomeController::class, 'home']);
+Route::get('/', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm']);
+// Route::post('/', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+
+// Students
+Route::get('/student', [App\Http\Controllers\StudentHomeController::class, 'home'])->middleware('auth')->name('studentHome');
+Route::get('/studentAttendance', [App\Http\Controllers\StudentHomeController::class, 'StudentAttendance'])->middleware('auth')->name('studentAttendance');
+
+//Teachers
+Route::get('/teacher', [App\Http\Controllers\TeacherController::class, 'home'])->middleware('auth')->name('teacherHome');
+Route::get('/attendanceForm', [App\Http\Controllers\TeacherController::class, 'attendanceForm'])->middleware('auth')->name('attendanceForm');

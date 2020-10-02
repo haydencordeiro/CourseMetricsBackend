@@ -31,11 +31,13 @@
                             <i class="fa fa-lock"></i>
                             <input type="password" name="password" id="password" placeholder="Password" oninput="this.className = ''">
                         </div>
-                        <div class="buttonContainer">
+                        <div class="buttonContainer" style="display: flex;flex-direction:column;">
                             <button type="submit">LOGIN</button>
+                            <a  style="margin-top:1rem;" href="{{route('register')}}">Need An Account</a>
                         </div>
                     </form>
                 </div>
+
 
                 <!-- </div> -->
             </div>

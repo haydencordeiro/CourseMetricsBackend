@@ -17,4 +17,18 @@ class StudentHomeController extends Controller
         return view('studentHome',['UpcomingActivites'=>$temp]);
     }
 
+    public function StudentAttendance()
+    {
+        
+        // $temp="select * from upcomingevents where Date  >= DATE(NOW())";
+        // $temp=DB::select($temp);
+        
+
+        // return view('studentHome',['UpcomingActivites'=>$temp]);
+        return view('studentAttendance');
+    }
+
+
+    
 }
+

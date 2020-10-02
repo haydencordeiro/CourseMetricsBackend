@@ -24,12 +24,14 @@
         {{-- <a href="#"><button class="sidenav-active-link"><i class="fa fa-tachometer"></i>Home</button></a>
         <h5>Student</h5> --}}
 
-        <a href="{{route('studentHome')}}"><button class={{(\Request::route()->getName() == 'studentHome')  ? 'sidenav-active-link' : '' }} ><i class="fa fa-file"></i> Student Dashboard</button></a>
-        <a href="{{route('studentAttendance')}}"><button class={{(\Request::route()->getName() == 'studentAttendance')  ? 'sidenav-active-link' : '' }}><i class="fa fa-book"></i> Attendance</button></a>
-        {{-- <h5>Teacher</h5>
-        <a href="teachers_marks.html"><button class=""><i class=" fa fa-line-chart"></i>
-            Marks Analysis</button></a> --}}
-
+        {{-- <a href="{{route('studentHome')}}"><button class={{(\Request::route()->getName() == 'studentHome')  ? 'sidenav-active-link' : '' }} ><i class="fa fa-file"></i> Student Dashboard</button></a>
+        <a href="{{route('studentAttendance')}}"><button class={{(\Request::route()->getName() == 'studentAttendance')  ? 'sidenav-active-link' : '' }}><i class="fa fa-book"></i> Attendance</button></a> --}}
+        {{-- <h5>Teacher</h5> --}}
+        <a href="{{route('teacherHome')}}"><button class="{{(\Request::route()->getName() == 'teacherHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
+            Marks Analysis</button></a>
+            <a href="{{route('attendanceForm')}}"><button class="{{(\Request::route()->getName() == 'attendanceForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
+                Attendance Form</button></a>
+    
         <div>
 
             <a href="javascipt:void(0)" class="closebtn">
