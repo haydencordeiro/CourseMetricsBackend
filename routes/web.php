@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('studentDash');
-})->middleware('auth');
+// Route::get('/', function () {
+//     return view('studentHome');
+// })->middleware('auth');
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/student', [App\Http\Controllers\StudentHomeController::class, 'home']);

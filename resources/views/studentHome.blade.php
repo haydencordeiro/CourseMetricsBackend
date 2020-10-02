@@ -1,4 +1,4 @@
-@extends('layouts.nav')
+@extends('layouts.studentnav')
 @section('content')
 <div class="content-area">
     <div class="flexContainer" id="dashboardLineContainer">
@@ -19,35 +19,50 @@
     </div>
     <h2 style="margin: 1% 2.5% 0 2.5%;">Upcoming Events</h2>
     <div class="flexContainer">
+
+
+        @foreach ($UpcomingActivites as $activity)
+
         <div class="flex-30 card4Table card-grid-container" style="flex: 0 0 30%;">
             <div class="cardRow1">
                 <div style="display: flex;flex-wrap: wrap;">
                     <div style="align-self: center;">
                         <!-- <i class="fa fa-user-circle fa-3x" style="color: #4099ff;"></i> -->
+                        @if(strtoupper($activity->ChapterName[0])=="A")
                         <h2 class="profileLetter" style="background-color: #4099ff;">A</h2>
+                        @elseif(strtoupper($activity->ChapterName[0])=="C")
+                        <h2 class="profileLetter" style="background-color: #2ED8B6;">C</h2>
+                        @elseif(strtoupper($activity->ChapterName[0])=="I")
+                        <h2 class="profileLetter" style="background-color: #FFB64D;">I</h2>
+                        @else
+                        <h2 class="profileLetter" style="background-color: #FFB64D;">{{$activity->ChapterName[0]}}</h2>
+
+                        @endif
                     </div>
 
                     <div style="text-align: left;align-self: center;font-size: 15px;">
-                        <b>ACM-DBIT</b><br> acmdbit@gmail.com
+                    <b>{{$activity->ChapterName}}</b><br> {{$activity->Email}}
                     </div>
                 </div>
 
                 <div class="tableFees">
-                    Rs. 100
+                    <h4>Rs:{{$activity->Price}}</h4>
+
                 </div>
             </div>
 
             <div class="cardRow2">
-                <h4>C++ Workshop</h4>
+                <h4>{{$activity->Description}}</h4>
             </div>
 
             <div class="cardRow3">
-                <p style="flex: 0 0 40%;margin-left: 5%;">03-02-2020</p>
+                <p style="flex: 0 0 40%;margin-left: 5%;">{{$activity->Date}}</p>
                 <p style="flex: 0 0 50%;justify-self: flex-end;color: #449cfc;text-align: right;">
-                    <b>Register</b></p>
+                    <b  onclick="window.open('{{$activity->Link}}');" >Register</b></p>
             </div>
         </div>
-        <div class="flex-30 card4Table card-grid-container" style="flex: 0 0 30%;">
+        @endforeach
+        {{-- <div class="flex-30 card4Table card-grid-container" style="flex: 0 0 30%;">
             <div class="cardRow1">
                 <div style="display: flex;flex-wrap: wrap;">
                     <div style="align-self: center;">
@@ -74,8 +89,8 @@
                 <p style="flex: 0 0 50%;justify-self: flex-end;color: #449cfc;text-align: right;">
                     <b>Register</b></p>
             </div>
-        </div>
-        <div class="flex-30 card4Table card-grid-container" style="flex: 0 0 30%;">
+        </div> --}}
+        {{-- <div class="flex-30 card4Table card-grid-container" style="flex: 0 0 30%;">
             <div class="cardRow1">
                 <div style="display: flex;flex-wrap: wrap;">
                     <div style="align-self: center;">
@@ -102,7 +117,7 @@
                 <p style="flex: 0 0 50%;justify-self: flex-end;color: #449cfc;text-align: right;">
                     <b>Register</b></p>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
@@ -118,7 +133,7 @@
 
     <h2 style="margin: 1% 2.5% 1% 2.5%;">Marks</h2>
     <div class="cardRow1 chart">
-        <table>
+        <table style="width: 100%">
             <tr>
               <th>Sr. No.</th>
               <th>Subjects</th>

@@ -42,4 +42,21 @@ class LoginController extends Controller
         
         return 'SID';
     }
+    public function redirectTo() {
+
+        return '/student';
+        // $role = Auth::user()->role; 
+        // switch ($role) {
+        //   case 'admin':
+        //     return '/admin_dashboard';
+        //     break;
+        //   case 'seller':
+        //     return '/seller_dashboard';
+        //     break; 
+      
+        //   default:
+        //     return '/home'; 
+        //   break;
+        // }
+      }
 }
