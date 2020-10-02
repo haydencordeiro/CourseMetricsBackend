@@ -18,7 +18,7 @@
         </div>
     </div>
     <h2 style="margin: 1% 2.5% 0 2.5%;">Upcoming Events</h2>
-    <div class="flexContainer">
+    <div class="flexContainer" style="justify-content: flex-start;margin:1rem;">
 
 
         @foreach ($UpcomingActivites as $activity)

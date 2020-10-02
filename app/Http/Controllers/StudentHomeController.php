@@ -9,10 +9,10 @@ class StudentHomeController extends Controller
     
     public function home()
     {
-        //
-        $temp="select * from upcomingevents";
+        
+        $temp="select * from upcomingevents where Date  >= DATE(NOW())";
         $temp=DB::select($temp);
-        // dd($temp);
+        
 
         return view('studentHome',['UpcomingActivites'=>$temp]);
     }
