@@ -32,7 +32,7 @@ class RegisterController extends Controller
     protected $redirectTo = '/';
     protected function redirectTo()
     {
-        return route('login');
+        return '/student';
 
     }
 

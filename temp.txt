@@ -1,0 +1,14 @@
+upcomingevents
+CREATE TABLE upcomingevents (
+    id int NOT NULL AUTO_INCREMENT,
+    ChapterName varchar(255),
+    Price Int,
+    Description Text,
+    Date Date,
+    Email varchar(255),
+    Link varchar(600),
+    PRIMARY KEY (id)
+);
+
+
+insert into upcomingevents(ChapterName,Price,Description,Date,Email,Link) VALUES('IEEE-DBIT',100,'C++ Workshop','2020-12-01','acmdbit@gmail.com','https://docs.google.com/forms/d/e/1FAIpQLSePrAlQ5Ury36PHf7Zdb3Jl_WZMpPaDDD9bY0t6KHC_p3jdwg/closedform')
