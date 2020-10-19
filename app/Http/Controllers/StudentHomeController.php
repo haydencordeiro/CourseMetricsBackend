@@ -52,7 +52,7 @@ class StudentHomeController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         $colors=array('#2ED8B6','lightpink','lightsalmon','#2ED8B6','lightpink','lightsalmon');
-        
+        // attendance progress bar
         $attendance="
         SELECT * FROM Enrolls as e
         JOIN Subject as s
@@ -64,8 +64,32 @@ class StudentHomeController extends Controller
         // dd($attendance);
         
 
+        // attendance table
+        $attendanceDates="SELECT DISTINCT date  FROM `Attendance` 
+        WHERE SFK=$id
+        order by date desc;";
+        $attendanceDates=DB::select($attendanceDates);
+        // dd($attendanceDates);
+        $attendanceTable=array();
+        
+        foreach($attendanceDates as $index=>$date){
+            $temp=array($date);
+            $tempQuery="SELECT  Slot,SubFK,Present  FROM Attendance 
+            WHERE SFK=$id and date='$date->date'
+             order by date desc";
+            $tempQuery=DB::select($tempQuery);
+            foreach($tempQuery as $tq){
+
+                array_push($temp,$tq);
+            }          
+            array_push($attendanceTable,$temp);
+
+        }
+        // dd($attendanceTable);
+        
+
         // return view('studentHome',['UpcomingActivites'=>$temp]);
-        return view('studentAttendance',['attendance'=>$attendance,'colors'=>$colors]);
+        return view('studentAttendance',['attendance'=>$attendance,'colors'=>$colors,'attendanceTable'=>$attendanceTable]);
     }
 
 
@@ -94,3 +118,13 @@ class StudentHomeController extends Controller
 // join Student as st
 // on(e.SFK=st.UID)
 // where e.SFK=1 and st.Sem=s.Sem
+
+
+// Teacher adds slot 
+// and students parse_ini_string
+
+
+
+// table(slotno , Stdfk,date,subfk)
+
+// table2(slotno,slotname)

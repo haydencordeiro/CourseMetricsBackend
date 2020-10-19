@@ -108,7 +108,28 @@
             <th>16:00 - 17:00</th>
             <th>17:00 - 18:00</th>
         </tr>
+
+        @foreach($attendanceTable as $i=>$day)
         <tr>
+        @foreach($day as $j=>$subject)
+            @if($j==0)
+                <td class="firstColAttTable">{{$subject->date}}</td>
+            @else
+                @for ($k = $j; $k<$subject->Slot; $k++)
+                <td style="border:none"></td>
+                @endfor
+                @if($subject->Present==1)
+                <td style="background-color:inherit;">{{$subject->SubFK}}</td>
+                @else   
+                <td style="background-color: #FF5370;">{{$subject->SubFK}}</td>
+
+                @endif
+            @endif
+        
+        @endforeach
+        </tr>
+        @endforeach
+        {{-- <tr>
             <td class="firstColAttTable">04-09-2020</td>
             <td style="background-color: #2ED8B6;">MP</td>
             <td style="background-color: #FF5370;">DBMS</td>
@@ -155,7 +176,7 @@
             <td style="background-color: #2ED8B6;">CN</td>
             <td style="background-color: #2ED8B6;">AA</td>
             <td style="background-color: #FF5370;">AA Lab</td>
-        </tr>
+        </tr> --}}
     </table>
 </div>
 <br><br>
