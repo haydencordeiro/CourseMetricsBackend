@@ -139,12 +139,14 @@
               <th>Subjects</th>
               <th>IA-1(Out of 20)</th>
             </tr>
+            @foreach ($AllSubjects as $indexKey =>$subject)
             <tr>
-              <td>1</td>
-              <td>Microprocessors</td>
-              <td>17</td>
+              <td>{{++$indexKey }}</td>
+              <td>{{$subject->SubFk}}</td>
+              <td>{{$subject->Marks}}</td>
             </tr>
-            <tr>
+            @endforeach
+            {{-- <tr>
               <td>2</td>
               <td>TCS</td>
               <td>20</td>
@@ -158,7 +160,7 @@
               <td>4</td>
               <td>DBMS</td>
               <td>17</td>
-            </tr>
+            </tr> --}}
           </table>
     </div>
 
