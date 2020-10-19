@@ -121,7 +121,7 @@
     </div>
 
 
-    <h2 style="margin: 1% 2.5% 1% 2.5%;">Attendance</h2>
+    <h2 style="margin: 1% 2.5% 1% 2.5%;">Analytics</h2>
     <div class="cardRow1 chart">
         <div style="flex: 0 0 50%; height:40vh; width:100% ; flex-wrap: wrap;">
             <canvas id="attChart"></canvas>
@@ -170,6 +170,10 @@
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+    var lable1= {!! json_encode($graph1Labels ) !!};
+    var graph1Marks= {!! json_encode($graph1Marks ) !!};
+
+
     var canvas = document.getElementById("attChart");
     var ctx = canvas.getContext('2d');
 
@@ -178,7 +182,8 @@
     Chart.defaults.global.defaultFontSize = 16;
 
     var data = {
-        labels: ["MP", "TCS", "Computer Networks", "Algorithms", "DBMS"],
+        // labels: ["MP", "TCS", "Computer Networks", "Algorithms", "DBMS"],
+        labels:lable1,
         datasets: [
             {
                 fill: true,
@@ -189,21 +194,8 @@
                     "#2ED8B6",
                     "lightsalmon",
                 ],
-                /*backgroundColor: [
-                    "#2ecc71",
-                    "#3498db",
-                    "#95a5a6",
-                    "#9b59b6",
-                    "#f1c40f",
-                ],*/
-                /*backgroundColor: [ //Alternative colours
-                    '#FFF1C9',
-                    '#F7B7A3',
-                    '#EA5F89',
-                    '#9B3192',
-                    '#57167E'
-                ],*/
-                data: [10, 10, 20, 30, 30],
+
+                data: graph1Marks,
                 borderWidth: [2, 2, 2, 2, 2]
             }
         ]
