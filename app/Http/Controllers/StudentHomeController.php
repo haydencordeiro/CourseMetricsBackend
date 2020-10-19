@@ -44,16 +44,28 @@ class StudentHomeController extends Controller
         return view('studentHome',['UpcomingActivites'=>$UActivities,'AllSubjects'=>$AllSubjects,
         'graph1Labels'=>$graph1Labels,'graph1Marks'=>$graph1Marks]);
     }
+    // NoOfLec
+    // LectureNo
 
     public function StudentAttendance()
-    {
+    {        
+        $user = Auth::user();
+        $id = Auth::id();
+        $colors=array('#2ED8B6','lightpink','lightsalmon','#2ED8B6','lightpink','lightsalmon');
         
-        // $temp="select * from upcomingevents where Date  >= DATE(NOW())";
-        // $temp=DB::select($temp);
+        $attendance="
+        SELECT * FROM Enrolls as e
+        JOIN Subject as s
+        on(e.SubFk=s.SubjectName)
+        join Student as st  
+        on(e.SFK=st.UID)
+        where e.SFK=$id and st.Sem=s.Sem";
+        $attendance=DB::select($attendance);
+        // dd($attendance);
         
 
         // return view('studentHome',['UpcomingActivites'=>$temp]);
-        return view('studentAttendance');
+        return view('studentAttendance',['attendance'=>$attendance,'colors'=>$colors]);
     }
 
 
@@ -67,3 +79,18 @@ class StudentHomeController extends Controller
 
 
 // SELECT *,Avg(Marks) FROM Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName) join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= 1 GROUP by ExamFk
+
+
+
+// SELECT * FROM Enrolls as e
+// JOIN Subject as s
+// on(e.SubFk=s.SubjectName)
+// where e.SFK=1 and sem=1
+
+
+// SELECT * FROM Enrolls as e
+// JOIN Subject as s
+// on(e.SubFk=s.SubjectName)
+// join Student as st
+// on(e.SFK=st.UID)
+// where e.SFK=1 and st.Sem=s.Sem

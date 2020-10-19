@@ -22,23 +22,27 @@
 
     <div class=" card4TableflexContainer">
 
+        @foreach($attendance as $index=>$sub)
+
         <div class="cardforAttprog">
             <div class="singleAttendanceCard">
                 <div class="singleAttendanceCardrow1">
-                    <h4>Computer Networks</h4>
-                    <h4 style="color:#2ED8B6;font-weight: bold;">23%</h4>
+                    <h4>{{$sub->SubjectName}}</h4>
+                    <h4 style="color:{{{$colors[$index]}}};font-weight: bold;">{{ $sub->NoOfLec/$sub->LectureNo*100 }}%</h4>
                 </div>
                 <div class="progressDiv">
                     <div class="progress">
                         <div class="progress" role="progressbar"
-                            style="position: relative;;top:0;left:0;width: 90%; background-color: #2ED8B6;">
+                            style="position: relative;top:0;left:0;width: {{{ $sub->NoOfLec/$sub->LectureNo*100 }}}%; background-color: {{{$colors[$index]}}};">
                         </div>
                     </div>
                 </div>
             </div>
+            
 
         </div>
-        <div class="cardforAttprog">
+        @endforeach
+        {{-- <div class="cardforAttprog">
             <div class="singleAttendanceCard">
                 <div class="singleAttendanceCardrow1">
                     <h4>Computer Networks</h4>
@@ -84,7 +88,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
     </div>
 
 
