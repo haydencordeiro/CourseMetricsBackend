@@ -12,10 +12,20 @@ class StudentHomeController extends Controller
         
         $user = Auth::user();
         $id = Auth::id();
+        // Upcoming events
         $UActivities="select * from upcomingevents where Date  >= DATE(NOW())";
         $UActivities=DB::select($UActivities);
-
-        $AllSubjects="SELECT * FROM `Marks` WHERE SFK= $id";
+        // Marks Table
+        $AllSubjects="SELECT * from (SELECT * FROM Marks as m
+        JOIN Subject as s
+        on(m.SubFk=s.SubjectName)
+        join Exams as e
+        on (e.id=m.ExamFk)
+        WHERE m.SFK= $id ) allrows
+        where sem=(SELECT MAX(sem) FROM Marks as m
+        JOIN Subject as s
+        on(m.SubFk=s.SubjectName)
+        WHERE m.SFK= $id )";
         $AllSubjects=DB::select($AllSubjects);
         // dd($AllSubjects);
         
@@ -40,7 +50,7 @@ class StudentHomeController extends Controller
     
 }
 
-// SELECT * FROM `Marks` as m
-// JOIN Subject as s
-// on(m.SubFk=s.SubjectName)
-// WHERE m.SFK= 1;
+
+
+
+

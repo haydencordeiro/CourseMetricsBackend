@@ -137,13 +137,13 @@
             <tr>
               <th>Sr. No.</th>
               <th>Subjects</th>
-              <th>IA-1(Out of 20)</th>
+              <th>Marks</th>
             </tr>
             @foreach ($AllSubjects as $indexKey =>$subject)
             <tr>
               <td>{{++$indexKey }}</td>
-              <td>{{$subject->SubFk}}</td>
-              <td>{{$subject->Marks}}</td>
+              <td>{{$subject->SubFk}} ({{$subject->Name}})</td>
+              <td>{{$subject->Marks}}/{{$subject->OutOf}}</td>
             </tr>
             @endforeach
             {{-- <tr>
