@@ -39,4 +39,21 @@ class HomeController extends Controller
         }
         // return view('home');
     }
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+        $id = Auth::id();
+        $teacher="SELECT count(*) c FROM `Teacher` 
+        WHERE Uid=$id";
+        $teacher=DB::select($teacher);
+        // dd($teacher[0]->c);
+        if($teacher[0]->c!=0){
+            return '/teacher';
+        }
+        else{
+
+            return '/student';
+        }
+
+    }
 }

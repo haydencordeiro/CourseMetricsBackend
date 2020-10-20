@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/';
     protected function redirectTo()
     {
         $user = Auth::user();

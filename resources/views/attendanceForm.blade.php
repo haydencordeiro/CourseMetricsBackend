@@ -29,6 +29,7 @@
 
 
 <div>
+
     <div class="dropdown">
         <div class="custom-select">
             <select name="semSelect">
@@ -52,6 +53,20 @@
             </select>
         </div>
     </div>
+
+    <div class="dropdown">
+        <div class="custom-select">
+            <select name="classSelect">
+            <option value="-1">Class</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+
+
+            </select>
+        </div>
+    </div>
     <div class="dropdown">
         <div class="custom-select">
             <select name="slotSelect">
@@ -72,13 +87,12 @@
     </div>
     <div class="dropdown">
         <div class="custom-select">
-            <select name="classSelect">
-            <option value="-1">Class</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
+            <select name="subjSelect">
+            <option value="-1">Subject</option>
+            @foreach($subjectList as $sub)
+            <option value="{{$sub->SubjectName}}">{{$sub->SubjectName}}</option>
 
+            @endforeach
 
             </select>
         </div>
@@ -162,7 +176,7 @@
         </div>
         <div style="margin-top: 1.5%;">
             <div class="dropdown">
-                <button class="dropbtn btn-danger">Absent</button>
+                <button class="dropbtn btn-danger" onclick="getSelected();">Absent</button>
             </div>
         </div>
     </div>
@@ -177,10 +191,11 @@
         <tbody id="attendance_form_table_data">
             @foreach($allStudent as $index=>$student)
             <tr>
-                <td><input type="checkbox" name="" id=""></td>
+            <td><input type="checkbox" class="attcheck" name="" id="{{$student->rollNo}}"></td>
                 <td>{{$student->rollNo}}</td>
             <td>{{$student->fname}} {{$student->lname}}</td>
             </tr>
+
             @endforeach
             {{-- <tr>
                 <td><input type="checkbox" name="" id=""></td>
@@ -214,6 +229,10 @@
             </tr> --}}
         </tbody>
     </table>
+    <form action="/addAttendance" method="POST" id="studentIdsform" style="display: none">
+   @csrf
+    <input type="input" id="studentIds" name="studentIds" value="">
+    </form>
 </div>
 <!-- </div> -->
 <br><br>
@@ -222,6 +241,26 @@
 @section('ScriptSect')
 
 <script>
+
+
+    function getSelected(){
+        var checkbox=document.getElementsByClassName('attcheck');
+        var checkedList=[]
+        for(var i=0;i<checkbox.length;i++){
+            if(checkbox[i].checked){
+                
+            checkedList.push(parseInt(checkbox[i].id))
+            }
+        }
+        console.log(checkedList);
+        document.getElementById('studentIds').value='['+checkedList+']';
+        document.getElementById('studentIdsform').submit();
+    }
+    // getSelected();
+
+
+
+
     var x, i, j, l, ll, selElmnt, a, b, c;
 /* Look for any elements with the class "custom-select": */
 x = document.getElementsByClassName("custom-select");
