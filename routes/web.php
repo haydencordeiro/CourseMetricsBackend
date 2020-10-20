@@ -29,3 +29,4 @@ Route::get('/studentAttendance', [App\Http\Controllers\StudentHomeController::cl
 //Teachers
 Route::get('/teacher', [App\Http\Controllers\TeacherController::class, 'home'])->middleware('auth')->name('teacherHome');
 Route::get('/attendanceForm', [App\Http\Controllers\TeacherController::class, 'attendanceForm'])->middleware('auth')->name('attendanceForm');
+Route::post('/attendanceForm', [App\Http\Controllers\TeacherController::class, 'attendanceFormPost'])->middleware('auth')->name('attendanceForm');

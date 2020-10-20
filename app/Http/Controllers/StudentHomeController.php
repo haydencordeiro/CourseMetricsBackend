@@ -41,6 +41,9 @@ class StudentHomeController extends Controller
         }
         // dd($graph1Marks);
 
+        // Line Graph;
+
+
         return view('studentHome',['UpcomingActivites'=>$UActivities,'AllSubjects'=>$AllSubjects,
         'graph1Labels'=>$graph1Labels,'graph1Marks'=>$graph1Marks]);
     }
@@ -102,47 +105,38 @@ class StudentHomeController extends Controller
 
 
 
-// SELECT *,Avg(Marks) FROM Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName) join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= 1 GROUP by ExamFk
 
 
 
-// SELECT * FROM Enrolls as e
-// JOIN Subject as s
-// on(e.SubFk=s.SubjectName)
-// where e.SFK=1 and sem=1
+
+// select *,EXTRACT(month from date)
+// from Attendance
+// group by EXTRACT(month from date)
 
 
-// SELECT * FROM Enrolls as e
-// JOIN Subject as s
-// on(e.SubFk=s.SubjectName)
-// join Student as st
-// on(e.SFK=st.UID)
-// where e.SFK=1 and st.Sem=s.Sem
+// SELECT * FROM Attendance WHERE 1
+// order by SubFK
 
-
-// Teacher adds slot 
-// and students parse_ini_string
-
-
-
-// table(slotno , Stdfk,date,subfk)
-
-// table2(slotno,slotname)
-
-// SELECT SubjectName from Teacher t
+// SELECT * from Attendance a
 // join Subject s
-// on(t.UID=s.TFk)
+// on a.SubFK=s.SubjectName
+// join users u
+// on u.id=a.SFK
 
 
-// SELECT * from Marks m where m.Marks in(SELECT SubjectName from Teacher t
+
+
+
+
+
+
+// SELECT DISTINCT SubFK from Attendance a
 // join Subject s
-// on(t.UID=s.TFk))
-
-
-
-
-// SELECT * from Teacher t
+// on a.SubFK=s.SubjectName 
+// where sem=(
+    
+    
+//     SELECT Max(Sem) from Attendance a
 // join Subject s
-// on(t.UID=s.TFk)
-// join Marks m
-// on m.SubFk=s.SubjectName
+// on a.SubFK=s.SubjectName
+// )

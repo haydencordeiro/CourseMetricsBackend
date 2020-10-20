@@ -12,4 +12,11 @@ class TeacherController extends Controller
     public function attendanceForm(){
         return view('attendanceForm');
     }
+
+    public function attendanceFormPost(Request $request){
+        // $temp=$request;
+        // $temp=$request->input('fromtime');
+        $temp=$request->input('yearSelect');
+        dd($temp);
+    }
 }
