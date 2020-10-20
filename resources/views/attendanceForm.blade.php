@@ -23,7 +23,7 @@
 <h2 style="margin: 1% 2.5% 1% 2.5%;">Update Attendance</h2>
 
 <!-- <div style=""> -->
-    <form method="POST" action="/attendanceForm">
+    <form method="POST"  id="studentIdsform" action="/attendanceForm">
         @csrf
 <div class="table_search cardRow1 tablecard" style="justify-content: flex-start;">
 
@@ -33,7 +33,7 @@
     <div class="dropdown">
         <div class="custom-select">
             <select name="semSelect">
-            <option value="-1">Sem</option>
+            <option value="1">Sem</option>
             @foreach($semList as $sem)
             <option value="{{$sem->sem}}">{{$sem->sem}}</option>
 
@@ -45,7 +45,7 @@
     <div class="dropdown">
         <div class="custom-select">
             <select name="deptSelect">
-            <option value="-1">Dept</option>
+            <option value="Comps">Dept</option>
             <option value="Comps">Comps</option>
             <option value="Mech">Mech</option>
             <option value="IT">IT</option>
@@ -57,7 +57,7 @@
     <div class="dropdown">
         <div class="custom-select">
             <select name="classSelect">
-            <option value="-1">Class</option>
+            <option value="A">Class</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -70,7 +70,7 @@
     <div class="dropdown">
         <div class="custom-select">
             <select name="slotSelect">
-            <option value="-1">Slot</option>
+            <option value="0">Slot</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -88,7 +88,7 @@
     <div class="dropdown">
         <div class="custom-select">
             <select name="subjSelect">
-            <option value="-1">Subject</option>
+            <option value="MP">Subject</option>
             @foreach($subjectList as $sub)
             <option value="{{$sub->SubjectName}}">{{$sub->SubjectName}}</option>
 
@@ -126,7 +126,7 @@
     
     <div>
         <div class="dropdown">
-            <input type="date" name="" id="" class="dropinput" style="outline: none;">
+            <input type="date" name="attDate" id="attDate" class="dropinput" style="outline: none;">
             <!-- <button class="dropbtn">Date</button> -->
             <!-- <div class="dropdown-content"> -->
             <!-- <a href="#">First Year</a> -->
@@ -146,7 +146,7 @@
         </div>
     </div> --}}
     <div>
-        <button>Go</button>
+        <button onclick="onlySearch();">Go</button>
     </div>
     
     <!-- <div style="flex: 0 0 40%;margin-right: 3%;margin-top:2%;">
@@ -163,17 +163,19 @@
                 </div>
             </div> -->
 </div>
+<input type="input" style="display:none" id="studentIds" name="studentIds" value="">
+<input type="input" style="display:none" id="checkWhich" name="checkWhich" value="">
 </form>
 <div class="cardRow2 tablecard">
     <div style="display: flex;flex-wrap: wrap;" class="table_inside_row">
         <div style="flex:0 0 60%;flex-grow: 3;">
             <input type="text" id="search_box" placeholder="Search .." style="margin: 1%;width: 95%;">
         </div>
-        <div style="margin-top: 1.5%;">
+        {{-- <div style="margin-top: 1.5%;">
             <div class="dropdown">
                 <button class="dropbtn btn-success">Present</button>
             </div>
-        </div>
+        </div> --}}
         <div style="margin-top: 1.5%;">
             <div class="dropdown">
                 <button class="dropbtn btn-danger" onclick="getSelected();">Absent</button>
@@ -191,7 +193,7 @@
         <tbody id="attendance_form_table_data">
             @foreach($allStudent as $index=>$student)
             <tr>
-            <td><input type="checkbox" class="attcheck" name="" id="{{$student->rollNo}}"></td>
+            <td><input type="checkbox" class="attcheck" name="" id="{{$student->UID}}"></td>
                 <td>{{$student->rollNo}}</td>
             <td>{{$student->fname}} {{$student->lname}}</td>
             </tr>
@@ -229,10 +231,7 @@
             </tr> --}}
         </tbody>
     </table>
-    <form action="/addAttendance" method="POST" id="studentIdsform" style="display: none">
-   @csrf
-    <input type="input" id="studentIds" name="studentIds" value="">
-    </form>
+
 </div>
 <!-- </div> -->
 <br><br>
@@ -253,8 +252,19 @@
             }
         }
         console.log(checkedList);
+
         document.getElementById('studentIds').value='['+checkedList+']';
+        document.getElementById('checkWhich').value='Atten';
+
+
         document.getElementById('studentIdsform').submit();
+    }
+
+    function onlySearch(){
+        document.getElementById('checkWhich').value='Go';
+        document.getElementById('studentIdsform').submit();
+
+
     }
     // getSelected();
 
