@@ -31,10 +31,53 @@
 <div>
     <div class="dropdown">
         <div class="custom-select">
-            <select>
-            <option value="0">Branch</option>
+            <select name="semSelect">
+            <option value="-1">Sem</option>
+            @foreach($semList as $sem)
+            <option value="{{$sem->sem}}">{{$sem->sem}}</option>
+
+            @endforeach
+
+            </select>
+        </div>
+    </div>
+    <div class="dropdown">
+        <div class="custom-select">
+            <select name="deptSelect">
+            <option value="-1">Dept</option>
+            <option value="Comps">Comps</option>
+            <option value="Mech">Mech</option>
+            <option value="IT">IT</option>
+            <option value="EXTC">EXTC</option>
+            </select>
+        </div>
+    </div>
+    <div class="dropdown">
+        <div class="custom-select">
+            <select name="slotSelect">
+            <option value="-1">Slot</option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+
+
+            </select>
+        </div>
+    </div>
+    <div class="dropdown">
+        <div class="custom-select">
+            <select name="classSelect">
+            <option value="-1">Class</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
 
 
             </select>
@@ -78,7 +121,7 @@
             <!-- <a href="#">Fourth Year</a> -->
         </div>
     </div>
-    <div>
+    {{-- <div>
         <div class="dropdown">
             <input type="time" name="fromtime" id="fromtime" class="dropinput" style="outline: none;" placeholder="From">
         </div>
@@ -87,7 +130,7 @@
         <div class="dropdown">
             <input type="time" name="" id="" class="dropinput" style="outline: none;" placeholder="To">
         </div>
-    </div>
+    </div> --}}
     <div>
         <button>Go</button>
     </div>
@@ -132,12 +175,14 @@
             </tr>
         </thead>
         <tbody id="attendance_form_table_data">
+            @foreach($allStudent as $index=>$student)
             <tr>
                 <td><input type="checkbox" name="" id=""></td>
-                <td>1</td>
-                <td>Grejo Joby</td>
+                <td>{{$student->rollNo}}</td>
+            <td>{{$student->fname}} {{$student->lname}}</td>
             </tr>
-            <tr>
+            @endforeach
+            {{-- <tr>
                 <td><input type="checkbox" name="" id=""></td>
                 <td>2</td>
                 <td>Hayden Cordeiro</td>
@@ -166,7 +211,7 @@
                 <td><input type="checkbox" name="" id=""></td>
                 <td>7</td>
                 <td>John Foe</td>
-            </tr>
+            </tr> --}}
         </tbody>
     </table>
 </div>
