@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $id = Auth::id();
+        $teacher="SELECT count(*) c FROM `Teacher` 
+        WHERE Uid=$id";
+        $teacher=DB::select($teacher);
+        // dd($teacher);
+        if($teacher[0]->c!=0){
+            return '/teacher';
+        }
+        else{
+
+            return '/student';
+        }
+        // return view('home');
     }
 }

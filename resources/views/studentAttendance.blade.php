@@ -119,7 +119,7 @@
                 <td style="border:none"></td>
                 @endfor
                 @if($subject->Present==1)
-                <td style="background-color:inherit;">{{$subject->SubFK}}</td>
+                <td style="background-color:#2ED8B6;">{{$subject->SubFK}}</td>
                 @else   
                 <td style="background-color: #FF5370;">{{$subject->SubFK}}</td>
 

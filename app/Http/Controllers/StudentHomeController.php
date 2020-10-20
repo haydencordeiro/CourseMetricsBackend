@@ -128,3 +128,21 @@ class StudentHomeController extends Controller
 // table(slotno , Stdfk,date,subfk)
 
 // table2(slotno,slotname)
+
+// SELECT SubjectName from Teacher t
+// join Subject s
+// on(t.UID=s.TFk)
+
+
+// SELECT * from Marks m where m.Marks in(SELECT SubjectName from Teacher t
+// join Subject s
+// on(t.UID=s.TFk))
+
+
+
+
+// SELECT * from Teacher t
+// join Subject s
+// on(t.UID=s.TFk)
+// join Marks m
+// on m.SubFk=s.SubjectName
