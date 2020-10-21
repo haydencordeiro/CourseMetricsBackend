@@ -15,7 +15,7 @@
         rel="stylesheet">
 
 </head>
-@if( Auth::user()->Verified !=0)
+@if( Auth::user()->Verified ==1)
 <body>
     <div id="mySidenav" class="sidenav">
         <h3 class="logo">CourseMatrics</h3>
@@ -88,23 +88,162 @@
 
     <script src="js/script.js"></script>
 </body>
-@else
-<body style="position: fixed;top:auto;left:auto;">
+@endif
 
-  
-        {{ Auth::user()->fname }} Please wait for admin to approve 
+@if( Auth::user()->Verified ==0 )
+        
+    <style>
+        
+        *{
+    transition: all 0.6s;
+    }
+
+    html {
+    height: 100%;
+    }
+
+    body{
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #888;
+    margin: 0;
+    }
+
+    #main{
+    display: table;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    }
+
+    .fof{
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .fof h1{
+        font-size: 50px;
+        display: inline-block;
+        padding-right: 12px;
+        animation: type .5s alternate infinite;
+    margin-bottom: 5px;
+    }
+
+    @keyframes type{
+        from{box-shadow: inset -3px 0px 0px #888;}
+        to{box-shadow: inset -3px 0px 0px transparent;}
+    }
+
+    h3 {
+    font-size: 1.8rem;
+    }
+    h5 {
+    font-size:1.0rem;
+    }
+    </style>
+    </head>
+
+    <body>
+    <div id="main">
+        <div class="fof">
+                <h1>Error 401</h1>
+        <h3>Access Denied</h3>
+        <h5>To access your dashboard, you need to get your account approved by the Admin.</h5>
+        
+        <a style="padding-left:1rem;text-decoration:none;font-size:1.2rem;color:#222; " href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+        </div>
+        
+
+    </div>
+    </body>
 
 
-    <a style="padding-left:1rem " href="{{ route('logout') }}"
-    onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-     {{ __('Logout') }}
- </a>
+    
+@endif
+@if( Auth::user()->Verified ==2 )
+      
+<style>
+        
+    *{
+transition: all 0.6s;
+}
 
- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-     @csrf
- </form>
-</body>
+html {
+height: 100%;
+}
+
+body{
+font-family: 'Lato', sans-serif;
+font-weight: 300;
+color: #888;
+margin: 0;
+}
+
+#main{
+display: table;
+width: 100%;
+height: 100vh;
+text-align: center;
+}
+
+.fof{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fof h1{
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: type .5s alternate infinite;
+margin-bottom: 5px;
+}
+
+@keyframes type{
+    from{box-shadow: inset -3px 0px 0px #888;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+h3 {
+font-size: 1.8rem;
+}
+h5 {
+font-size:1.0rem;
+}
+</style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="fof">
+                <h1>Error 401</h1>
+        <h3>Access Denied</h3>
+        <h5>Only Students can access this page</h5>
+        
+        <a style="padding-left:1rem;text-decoration:none;font-size:1.2rem;color:#222; " href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+        </div>
+        
+
+    </div>
+    </body>
+
+
 @endif
 
 </html>

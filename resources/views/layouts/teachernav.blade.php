@@ -15,97 +15,237 @@
         rel="stylesheet">
 
 </head>
-@if( Auth::user()->Verified !=0)
-<body>
-    <div id="mySidenav" class="sidenav">
-        <h3 class="logo">CourseMatrics</h3>
-        <h5>Navigation</h5>
 
-        {{-- <a href="#"><button class="sidenav-active-link"><i class="fa fa-tachometer"></i>Home</button></a>
-        <h5>Student</h5> --}}
 
-        {{-- <a href="{{route('studentHome')}}"><button class={{(\Request::route()->getName() == 'studentHome')  ? 'sidenav-active-link' : '' }} ><i class="fa fa-file"></i> Student Dashboard</button></a>
-        <a href="{{route('studentAttendance')}}"><button class={{(\Request::route()->getName() == 'studentAttendance')  ? 'sidenav-active-link' : '' }}><i class="fa fa-book"></i> Attendance</button></a> --}}
-        {{-- <h5>Teacher</h5> --}}
-        <a href="{{route('teacherHome')}}"><button class="{{(\Request::route()->getName() == 'teacherHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
-            Marks Analysis</button></a>
-            <a href="{{route('attendanceForm')}}"><button class="{{(\Request::route()->getName() == 'attendanceForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
-                Attendance Form</button></a>
-    
-        <div>
+@if( Auth::user()->Verified ==2 )
+    <body>
+        <div id="mySidenav" class="sidenav">
+            <h3 class="logo">CourseMatrics</h3>
+            <h5>Navigation</h5>
 
-            <a href="javascipt:void(0)" class="closebtn">
-                <i class="fa fa-angle-left" onclick="toggleF()"></i>
-            </a>
-        </div>
+            {{-- <a href="#"><button class="sidenav-active-link"><i class="fa fa-tachometer"></i>Home</button></a>
+            <h5>Student</h5> --}}
 
-    </div>
-    <div class="flexArea" id="flexArea">
-        <div class="navbar">
-            <div class="openbtnhide"><a href="javascipt:void(0)"></a><i class="fa fa-bars fa-lg "
-                    onclick="toggleF()"></i>
-                </a></div>
+            {{-- <a href="{{route('studentHome')}}"><button class={{(\Request::route()->getName() == 'studentHome')  ? 'sidenav-active-link' : '' }} ><i class="fa fa-file"></i> Student Dashboard</button></a>
+            <a href="{{route('studentAttendance')}}"><button class={{(\Request::route()->getName() == 'studentAttendance')  ? 'sidenav-active-link' : '' }}><i class="fa fa-book"></i> Attendance</button></a> --}}
+            {{-- <h5>Teacher</h5> --}}
+            <a href="{{route('teacherHome')}}"><button class="{{(\Request::route()->getName() == 'teacherHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
+                Marks Analysis</button></a>
+                <a href="{{route('attendanceForm')}}"><button class="{{(\Request::route()->getName() == 'attendanceForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
+                    Attendance Form</button></a>
+        
             <div>
+
+                <a href="javascipt:void(0)" class="closebtn">
+                    <i class="fa fa-angle-left" onclick="toggleF()"></i>
+                </a>
+            </div>
+
+        </div>
+        <div class="flexArea" id="flexArea">
+            <div class="navbar">
+                <div class="openbtnhide"><a href="javascipt:void(0)"></a><i class="fa fa-bars fa-lg "
+                        onclick="toggleF()"></i>
+                    </a></div>
+                <div>
+
+                </div>
+
+                <ul id="usernav">
+
+                    
+                    @auth
+                    <li><i class="fa fa-bell fa-lg"></i></li>
+                    <li><i class="fa fa-comment-o fa-lg"></i></li>
+                    <li><i class="fa fa-user fa-lg"></i> {{ Auth::user()->fname }}</li>
+                    <a style="padding-left:1rem " href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                    @endauth
+                    @guest
+                <a href="{{ route('register') }}" style="text-decoration: none;padding-left:1rem;">Register</a>
+                            <a href="{{ route('login') }}" style="text-decoration: none;padding-left:1rem;">Login</a>
+                    @endguest
+
+
+
+
+
+                </ul>
+
 
             </div>
 
-            <ul id="usernav">
-
-                
-                @auth
-                <li><i class="fa fa-bell fa-lg"></i></li>
-                <li><i class="fa fa-comment-o fa-lg"></i></li>
-                <li><i class="fa fa-user fa-lg"></i> {{ Auth::user()->fname }}</li>
-                <a style="padding-left:1rem " href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
-                 {{ __('Logout') }}
-             </a>
-
-             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                 @csrf
-             </form>
-                @endauth
-                @guest
-            <a href="{{ route('register') }}" style="text-decoration: none;padding-left:1rem;">Register</a>
-                        <a href="{{ route('login') }}" style="text-decoration: none;padding-left:1rem;">Login</a>
-                @endguest
-
-
-
-
-
-            </ul>
-
-
+            @yield('content')
+            <!-- Footer -->
+            <div class="navbar" style="display: flex;justify-content: center;align-items: center; color: #A9A9A9;margin-top:1rem;">
+                <h4>Copyrights @ CourseMetrics 2020</h4>
+            </div>
         </div>
+        @yield('ScriptSect')
 
-        @yield('content')
-        <!-- Footer -->
-        <div class="navbar" style="display: flex;justify-content: center;align-items: center; color: #A9A9A9;margin-top:1rem;">
-            <h4>Copyrights @ CourseMetrics 2020</h4>
+        <script src="js/script.js"></script>
+    </body>
+@endif
+@if( Auth::user()->Verified ==0 )
+        
+    <style>
+        
+        *{
+    transition: all 0.6s;
+    }
+
+    html {
+    height: 100%;
+    }
+
+    body{
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #888;
+    margin: 0;
+    }
+
+    #main{
+    display: table;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    }
+
+    .fof{
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .fof h1{
+        font-size: 50px;
+        display: inline-block;
+        padding-right: 12px;
+        animation: type .5s alternate infinite;
+    margin-bottom: 5px;
+    }
+
+    @keyframes type{
+        from{box-shadow: inset -3px 0px 0px #888;}
+        to{box-shadow: inset -3px 0px 0px transparent;}
+    }
+
+    h3 {
+    font-size: 1.8rem;
+    }
+    h5 {
+    font-size:1.0rem;
+    }
+    </style>
+    </head>
+
+    <body>
+    <div id="main">
+        <div class="fof">
+                <h1>Error 401</h1>
+        <h3>Access Denied</h3>
+        <h5>To access your dashboard, you need to get your account approved by the Admin.</h5>
+        
+        <a style="padding-left:1rem;text-decoration:none;font-size:1.2rem;color:#222; " href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
         </div>
+        
+
     </div>
-    @yield('ScriptSect')
-
-    <script src="js/script.js"></script>
-</body>
-@else
-<body style="position: fixed;top:auto;left:auto;">
-
-  
-        {{ Auth::user()->fname }} Please wait for admin to approve 
+    </body>
 
 
-    <a style="padding-left:1rem " href="{{ route('logout') }}"
-    onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-     {{ __('Logout') }}
- </a>
+    
+@endif
+@if( Auth::user()->Verified ==1 )
+      
+<style>
+        
+    *{
+transition: all 0.6s;
+}
 
- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-     @csrf
- </form>
-</body>
+html {
+height: 100%;
+}
+
+body{
+font-family: 'Lato', sans-serif;
+font-weight: 300;
+color: #888;
+margin: 0;
+}
+
+#main{
+display: table;
+width: 100%;
+height: 100vh;
+text-align: center;
+}
+
+.fof{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fof h1{
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: type .5s alternate infinite;
+margin-bottom: 5px;
+}
+
+@keyframes type{
+    from{box-shadow: inset -3px 0px 0px #888;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+h3 {
+font-size: 1.8rem;
+}
+h5 {
+font-size:1.0rem;
+}
+</style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="fof">
+                <h1>Error 401</h1>
+        <h3>Access Denied</h3>
+        <h5>Only Teachers can access this page</h5>
+        
+        <a style="padding-left:1rem;text-decoration:none;font-size:1.2rem;color:#222; " href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+        </div>
+        
+
+    </div>
+    </body>
+
+
 @endif
 </html>
