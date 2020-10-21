@@ -8,7 +8,7 @@ class TeacherController extends Controller
 {
     public function home(Request $request){
        
-
+        
 
         $subjectList="Select Distinct * from Subject";
         $subjectList=DB::select($subjectList);
@@ -16,7 +16,9 @@ class TeacherController extends Controller
         $examList=DB::select($examList);
 
         //temp variables incase first get request
-        $toppersList="";
+        $toppersList=array();
+        $lowScoreList=array();
+        $marksDistribution=array();
         
 
         if( $request->isMethod('post'))
@@ -28,14 +30,24 @@ class TeacherController extends Controller
             $examSelect=$request->input('examSelect');
 
             //data from db
-            $toppersList="SELECT users.fname, users.lname FROM Marks JOIN users WHERE Marks.SFK=users.id AND SubFk='$subjSelect' ORDER BY Marks.Marks DESC LIMIT 3";
+            $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
+             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
+             AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
             $toppersList=DB::select($toppersList);
+            $lowScoreList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
+            WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
+            AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks  LIMIT 5";
+           $lowScoreList=DB::select($lowScoreList);
+           $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
+           $marksDistribution=DB::select($marksDistribution);
+            
+            // dd($marksDistribution);
         // dd($semSelect,$deptSelect,$classSelect,$subjSelect,$examSelect);
 
 
         }
 
-        return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,$toppersList=$toppersList]);
+        return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution]);
 
     }
     public function attendanceForm(){

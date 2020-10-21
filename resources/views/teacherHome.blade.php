@@ -116,6 +116,7 @@
 <input type="input" style="display:none" id="studentIds" name="studentIds" value="">
 <input type="input" style="display:none" id="checkWhich" name="checkWhich" value="">
 </form>
+@if(count($toppersList)>0)
     <div class="flexContainer">
         <div class="flex-50 chartCard card" style="margin-top:1.2rem;" >
             <h4> <strong>Class Performance</strong></h4>
@@ -123,48 +124,51 @@
                 <canvas id="markschart" style="width:100%;"></canvas>
             </div>
         </div>
+        
         <div class="flex-50 verticalFlex">
             <div class="card verticalFlexItem" style="margin-bottom: 1.5%;margin-top:0.3rem">
                 <h6 style="text-align: center;">Highest Performers</h6>
                 <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
-                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
-                    <tr><td>2</td><td>Athira Lonappan</td></tr>
-                    <tr><td>3</td><td>Grejo Joby</td></tr>
-                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
-                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                    @foreach($toppersList as $i=>$topper)
+
+                    <tr><td>{{++$i}}</td><td>{{$topper->fname}} {{$topper->lname}}</td></tr>
+                    @endforeach
+
                 </table>
             </div>
             <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
                 <h6 style="text-align: center;">Lowest Performers</h6>
                 <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
-                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
-                    <tr><td>2</td><td>Athira Lonappan</td></tr>
-                    <tr><td>3</td><td>Grejo Joby</td></tr>
-                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
-                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                    @foreach($lowScoreList as $i=>$topper)
+
+                    <tr><td>{{++$i}}</td><td>{{$topper->fname}} {{$topper->lname}}</td></tr>
+                    @endforeach
                 </table>
             </div>
         </div>
+        
         <div class="flex-40 verticalFlex">
+            @foreach($marksDistribution as $marks)
             <div class="card verticalFlexItem" style="margin-bottom: 1.5%;">
-                <h6>Impressions</h6>
-                <h3 style="color: #4098FE;">1250</h3>
+                <h6>Maximum Marks</h6>
+                <h3 style="color: #4098FE;">{{$marks->max}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
             <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
-                <h6>Sales</h6>
-                <h3 style="color: #FF5370;">1250</h3>
+                <h6>Average Marks</h6>
+                <h3 style="color: #FF5370;">{{$marks->avg}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
             <div class="card verticalFlexItem" style="margin-top: 1.5%;">
-                <h6>Visitors</h6>
-                <h3 style="color: #FFB64D;">1250</h3>
+                <h6>Lowest Marks</h6>
+                <h3 style="color: #FFB64D;">{{$marks->min}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
+            @endforeach
 
         </div>
     </div>
-
+@endif
     <h2 style="margin: 1% 2.5% 0 2.5%;" style="margin-top:1.3rem;">Attendance Analysis</h2>
 
     <div class="flexContainer">

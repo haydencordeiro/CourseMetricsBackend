@@ -9,7 +9,7 @@ class adminController extends Controller
 {
     //
     public function adminHome(Request $request){
-        $toApprove="SELECT * FROM `users` WHERE users.id NOT IN (SELECT Student.UID From Student) AND users.id NOT IN (SELECT Teacher.UID From Teacher);";
+        $toApprove="SELECT * FROM `users` WHERE Verified=0";
         $toApprove=DB::select($toApprove);
         // dd($toApprove);
         $checkWhich=$request->input('checkWhich');
@@ -21,7 +21,26 @@ class adminController extends Controller
                 
                 array_push($selectList,$id);    
             }
-            dd($selectList);
+            // dd($toApprove);
+
+            foreach($toApprove as $student){
+
+                if (in_array($student->id, $selectList))
+                {   
+
+                    
+                    
+                    
+                }
+                else{
+                    $ApproveStudent="UPDATE users SET Verified = 1 WHERE id= $student->id ;";
+                    $ApproveStudent=DB::statement($ApproveStudent);
+                    
+                }
+
+         }
+         $toApprove="SELECT * FROM `users` WHERE Verified=0";
+         $toApprove=DB::select($toApprove);
         }
 
 

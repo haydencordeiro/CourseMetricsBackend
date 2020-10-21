@@ -77,12 +77,12 @@
 
 
         </div>
-
-        @yield('content')
         <!-- Footer -->
         <div class="navbar" style="display: flex;justify-content: center;align-items: center; color: #A9A9A9;margin-top:1rem;">
             <h4>Copyrights @ CourseMetrics 2020</h4>
         </div>
+        @yield('content')
+
     </div>
     @yield('ScriptSect')
 

@@ -95,16 +95,6 @@
         <!-- </div> -->
         <br><br>
 
-        <!-- Footer -->
-        <div class="navbar" style="display: flex;justify-content: center;align-items: center; color: #A9A9A9;">
-            <h4>Copyrights @ CourseMetrics 2020</h4>
-        </div>
-
-    </div>
-
-
-
-    </div>
 
 @section('ScriptSect')
 

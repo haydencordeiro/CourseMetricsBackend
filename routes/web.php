@@ -34,5 +34,5 @@ Route::post('/attendanceForm', [App\Http\Controllers\TeacherController::class, '
 
 // admin
 Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
-Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
+Route::post('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
 
