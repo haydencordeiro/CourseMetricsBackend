@@ -115,7 +115,7 @@
             @if($j==0)
                 <td class="firstColAttTable">{{$subject->date}}</td>
             @else
-                @for ($k = $j; $k<$subject->Slot; $k++)
+                @for ($k = $j-1; $k<$subject->Slot; $k++)
                 <td style="border:none"></td>
                 @endfor
                 @if($subject->Present==1)
@@ -180,7 +180,7 @@
     </table>
 </div>
 <br><br>
-<div class="AttendanceTableContainer">
+{{-- <div class="AttendanceTableContainer">
     <div style="width: 100%;height:80%;overflow:auto">
     <table id="attendanceTable2">
         <tr class="firstRowAttTable">
@@ -245,7 +245,7 @@
         </tr>
     </table>
 </div>
-</div>
+</div> --}}
 
 
 
