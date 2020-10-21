@@ -19,7 +19,6 @@
     </div>
 
 
-    <h2 style="margin: 1% 2.5% 0 2.5%;">Marks Analysis</h2>
     <form method="POST"  id="studentIdsform" action="/teacher">
         @csrf
 <div class="table_search cardRow1 tablecard" style="justify-content: flex-start;">
@@ -117,6 +116,8 @@
 <input type="input" style="display:none" id="checkWhich" name="checkWhich" value="">
 </form>
 @if(count($toppersList)>0)
+
+<h2 style="margin: 1% 2.5% 0 2.5%;">Marks Analysis</h2>
     <div class="flexContainer">
         <div class="flex-50 chartCard card" style="margin-top:1.2rem;" >
             <h4> <strong>Class Performance</strong></h4>

@@ -51,14 +51,18 @@
 
                 
                 @auth
-                <li><i class="fa fa-bell fa-lg"></i></li>
+                <li style="margin-right: 0.3rem;"><i class="fa fa-user fa-lg"></i >&nbsp;&nbsp;{{ Auth::user()->fname }}</li>
+
+                <li><i class="fa fa fa-sign-out" style="font-size: 1.4rem;cursor: pointer;" href="{{ route('logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"></i></li>
+    
+                {{-- <li><i class="fa fa-bell fa-lg"></i></li>
                 <li><i class="fa fa-comment-o fa-lg"></i></li>
                 <li><i class="fa fa-user fa-lg"></i> {{ Auth::user()->fname }}</li>
                 <a style="padding-left:1rem " href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                  {{ __('Logout') }}
-             </a>
+             </a> --}}
 
              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                  @csrf
