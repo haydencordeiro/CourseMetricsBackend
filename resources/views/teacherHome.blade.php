@@ -19,68 +19,29 @@
     </div>
 
 
-    <div class="table_search cardRow1 tablecard" style="width:100%;justify-content: flex-start;">
-
-        <div>
-            <div class="dropdown">
-                <button class="dropbtn">Year<i class="fa fa-caret-down" aria-hidden="true"
-                        style="margin-left: 10px;"></i></button>
-                <div class="dropdown-content">
-                    <a href="#">First Year</a>
-                    <a href="#">Second Year</a>
-                    <a href="#">Third Year</a>
-                    <a href="#">Fourth Year</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="dropdown">
-                <button class="dropbtn">Branch<i class="fa fa-caret-down" aria-hidden="true"
-                        style="margin-left: 10px;"></i></button>
-                <div class="dropdown-content">
-                    <a href="#">Computer</a>
-                    <a href="#">IT</a>
-                    <a href="#">EXTC</a>
-                    <a href="#">Mechanical</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="dropdown">
-                <button class="dropbtn">Subject<i class="fa fa-caret-down" aria-hidden="true"
-                        style="margin-left: 10px;"></i></button>
-                <div class="dropdown-content">
-                    <a href="#">MP</a>
-                    <a href="#">CN</a>
-                    <a href="#">TCS</a>
-                    <a href="#">AA</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="dropdown">
-                <button class="dropbtn">Exam<i class="fa fa-caret-down" aria-hidden="true"
-                        style="margin-left: 10px;"></i></button>
-                <div class="dropdown-content">
-                    <a href="#">IA1</a>
-                    <a href="#">IA2</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="dropdown">
-                <button class="dropbtn">Month<i class="fa fa-caret-down" aria-hidden="true"
-                        style="margin-left: 10px;"></i></button>
-                <div class="dropdown-content">
-                    <a href="#">Jan</a>
-                    <a href="#">Feb</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <h2 style="margin: 1% 2.5% 0 2.5%;">Marks Analysis</h2>
+    <form method="POST"  id="studentIdsform" action="/attendanceForm">
+        @csrf
+        <div class="table_search cardRow1 tablecard" style="justify-content: flex-start;">
 
+
+
+                <div class="dropdown">
+                    <div class="custom-select">
+                        <select name="deptSelect">
+                        <option value="Comps">Dept</option>
+                        <option value="Comps">Comps</option>
+                        <option value="Mech">Mech</option>
+                        <option value="IT">IT</option>
+                        <option value="EXTC">EXTC</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <input type="input" style="display:none" id="studentIds" name="studentIds" value="">
+            <input type="input" style="display:none" id="checkWhich" name="checkWhich" value="">
+    </form>
     <div class="flexContainer">
         <div class="flex-50 chartCard card">
             <h4> <strong>Class Performance</strong></h4>

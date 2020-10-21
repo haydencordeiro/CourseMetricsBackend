@@ -7,7 +7,9 @@ use DB;
 class TeacherController extends Controller
 {
     public function home(){
-        return view('teacherHome');
+        
+        return view('teacherHome',['semList'=>array(),'allStudent'=>array(),'subjectList'=>array()]);
+
     }
     public function attendanceForm(){
         $user = Auth::user();
