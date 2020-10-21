@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
+// Route::get('/test', function () {
+//     return view('admin_confirm');
 // });
 
 Auth::routes();
@@ -28,5 +28,11 @@ Route::get('/studentAttendance', [App\Http\Controllers\StudentHomeController::cl
 
 //Teachers
 Route::get('/teacher', [App\Http\Controllers\TeacherController::class, 'home'])->middleware('auth')->name('teacherHome');
+Route::post('/teacher', [App\Http\Controllers\TeacherController::class, 'home'])->middleware('auth')->name('teacherHome');
 Route::get('/attendanceForm', [App\Http\Controllers\TeacherController::class, 'attendanceForm'])->middleware('auth')->name('attendanceForm');
 Route::post('/attendanceForm', [App\Http\Controllers\TeacherController::class, 'attendanceFormPost'])->middleware('auth')->name('attendanceFormPost');
+
+// admin
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
+

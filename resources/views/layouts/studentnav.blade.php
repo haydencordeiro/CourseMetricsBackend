@@ -15,7 +15,7 @@
         rel="stylesheet">
 
 </head>
-
+@if( Auth::user()->Verified !=0)
 <body>
     <div id="mySidenav" class="sidenav">
         <h3 class="logo">CourseMatrics</h3>
@@ -88,5 +88,23 @@
 
     <script src="js/script.js"></script>
 </body>
+@else
+<body style="position: fixed;top:auto;left:auto;">
+
+  
+        {{ Auth::user()->fname }} Please wait for admin to approve 
+
+
+    <a style="padding-left:1rem " href="{{ route('logout') }}"
+    onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+     {{ __('Logout') }}
+ </a>
+
+ <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+     @csrf
+ </form>
+</body>
+@endif
 
 </html>

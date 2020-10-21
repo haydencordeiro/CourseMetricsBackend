@@ -20,7 +20,7 @@
 
 
     <h2 style="margin: 1% 2.5% 0 2.5%;">Marks Analysis</h2>
-    <form method="POST"  id="studentIdsform" action="/attendanceForm">
+    <form method="POST"  id="studentIdsform" action="/teacher">
         @csrf
 <div class="table_search cardRow1 tablecard" style="justify-content: flex-start;">
 
@@ -53,24 +53,21 @@
             </select>
         </div>
     </div>
+    
     <div class="dropdown">
         <div class="custom-select">
-            <select name="slotSelect">
-            <option value="0">Slot</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
+            <select name="semSelect">
+            <option value="1">Sem</option>
+            <option value="2">1</option>
+            <option value="3">2</option>
+            <option value="4">3</option>
+            <option value="5">4</option>
 
 
             </select>
         </div>
     </div>
+
     <div class="dropdown">
         <div class="custom-select">
             <select name="subjSelect">
@@ -83,54 +80,21 @@
             </select>
         </div>
     </div>
+    
+    <div class="dropdown">
+        <div class="custom-select">
+            <select name="examSelect">
+            <option value="IA-1">Exam</option>
+            @foreach($examList as $exam)
+            <option value="{{$exam->Name}}">{{$exam->Name}}</option>
+
+            @endforeach
+
+            </select>
+        </div>
+    </div>
 </div>
 
-    {{-- <div>
-        <div class="dropdown">
-            <button class="dropbtn">Branch<i class="fa fa-caret-down" aria-hidden="true"
-                    style="margin-left: 10px;"></i></button>
-            <div class="dropdown-content">
-                <a href="#">Computer</a>
-                <a href="#">IT</a>
-                <a href="#">EXTC</a>
-                <a href="#">Mechanical</a>
-            </div>
-        </div>
-    </div> --}}
-    {{-- <div>
-        <div class="dropdown">
-            <button class="dropbtn">Subject<i class="fa fa-caret-down" aria-hidden="true"
-                    style="margin-left: 10px;"></i></button>
-            <div class="dropdown-content" name="test" id="test">
-                <a href="#">MP</a>
-                <a href="#">CN</a>
-                <a href="#">TCS</a>
-                <a href="#">AA</a>
-            </div>
-        </div>
-    </div> --}}
-    
-    <div>
-        <div class="dropdown">
-            <input type="date" name="attDate" id="attDate" class="dropinput" style="outline: none;">
-            <!-- <button class="dropbtn">Date</button> -->
-            <!-- <div class="dropdown-content"> -->
-            <!-- <a href="#">First Year</a> -->
-            <!-- <a href="#">Second Year</a> -->
-            <!-- <a href="#">Third Year</a> -->
-            <!-- <a href="#">Fourth Year</a> -->
-        </div>
-    </div>
-    {{-- <div>
-        <div class="dropdown">
-            <input type="time" name="fromtime" id="fromtime" class="dropinput" style="outline: none;" placeholder="From">
-        </div>
-    </div>
-    <div>
-        <div class="dropdown">
-            <input type="time" name="" id="" class="dropinput" style="outline: none;" placeholder="To">
-        </div>
-    </div> --}}
     <div>
         <button onclick="onlySearch();">Go</button>
     </div>
@@ -153,15 +117,33 @@
 <input type="input" style="display:none" id="checkWhich" name="checkWhich" value="">
 </form>
     <div class="flexContainer">
-        <div class="flex-50 chartCard card">
+        <div class="flex-50 chartCard card" style="margin-top:1.2rem;" >
             <h4> <strong>Class Performance</strong></h4>
             <div class="chartStyle">
                 <canvas id="markschart" style="width:100%;"></canvas>
             </div>
         </div>
-        <div class="flex-50 chartCard card">
-            <h4><strong>Sales Analytics</strong></h4>
-
+        <div class="flex-50 verticalFlex">
+            <div class="card verticalFlexItem" style="margin-bottom: 1.5%;margin-top:0.3rem">
+                <h6 style="text-align: center;">Highest Performers</h6>
+                <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
+                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
+                    <tr><td>2</td><td>Athira Lonappan</td></tr>
+                    <tr><td>3</td><td>Grejo Joby</td></tr>
+                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                </table>
+            </div>
+            <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
+                <h6 style="text-align: center;">Lowest Performers</h6>
+                <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
+                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
+                    <tr><td>2</td><td>Athira Lonappan</td></tr>
+                    <tr><td>3</td><td>Grejo Joby</td></tr>
+                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                </table>
+            </div>
         </div>
         <div class="flex-40 verticalFlex">
             <div class="card verticalFlexItem" style="margin-bottom: 1.5%;">
@@ -183,7 +165,7 @@
         </div>
     </div>
 
-    <h2 style="margin: 1% 2.5% 0 2.5%;">Attendance Analysis</h2>
+    <h2 style="margin: 1% 2.5% 0 2.5%;" style="margin-top:1.3rem;">Attendance Analysis</h2>
 
     <div class="flexContainer">
         <div class="flex-50 chartCard card" id="lastChart">
@@ -192,11 +174,26 @@
                 <canvas id="attchart" style="width:100%;"></canvas>
             </div>
         </div>
-        <div class="flex-50 chartCard card">
-            <h4><strong>Sales Analytics</strong></h4>
-            <div style="width: 95%;height: 95%;">
-
-
+        <div class="flex-50 verticalFlex">
+            <div class="card verticalFlexItem" style="margin-bottom: 1.5%;margin-top:0.3rem">
+                <h6 style="text-align: center;">Highest Performers</h6>
+                <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
+                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
+                    <tr><td>2</td><td>Athira Lonappan</td></tr>
+                    <tr><td>3</td><td>Grejo Joby</td></tr>
+                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                </table>
+            </div>
+            <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
+                <h6 style="text-align: center;">Lowest Performers</h6>
+                <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
+                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
+                    <tr><td>2</td><td>Athira Lonappan</td></tr>
+                    <tr><td>3</td><td>Grejo Joby</td></tr>
+                    <tr><td>4</td><td>Hayden Cordeiro</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                </table>
             </div>
         </div>
         <div class="flex-40 verticalFlex">

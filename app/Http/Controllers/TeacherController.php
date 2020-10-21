@@ -6,9 +6,36 @@ use Illuminate\Http\Request;
 use DB;
 class TeacherController extends Controller
 {
-    public function home(){
+    public function home(Request $request){
+       
+
+
+        $subjectList="Select Distinct * from Subject";
+        $subjectList=DB::select($subjectList);
+        $examList="select distinct * from Exams;";
+        $examList=DB::select($examList);
+
+        //temp variables incase first get request
+        $toppersList="";
         
-        return view('teacherHome',['semList'=>array(),'allStudent'=>array(),'subjectList'=>array()]);
+
+        if( $request->isMethod('post'))
+        {
+            $semSelect=$request->input('semSelect');
+            $deptSelect=$request->input('deptSelect');
+            $classSelect=$request->input('classSelect');
+            $subjSelect=$request->input('subjSelect');
+            $examSelect=$request->input('examSelect');
+
+            //data from db
+            $toppersList="SELECT users.fname, users.lname FROM Marks JOIN users WHERE Marks.SFK=users.id AND SubFk='$subjSelect' ORDER BY Marks.Marks DESC LIMIT 3";
+            $toppersList=DB::select($toppersList);
+        // dd($semSelect,$deptSelect,$classSelect,$subjSelect,$examSelect);
+
+
+        }
+
+        return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,$toppersList=$toppersList]);
 
     }
     public function attendanceForm(){

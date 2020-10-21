@@ -15,7 +15,7 @@
         rel="stylesheet">
 
 </head>
-@if( Auth::user()->Verified !=0)
+
 <body>
     <div id="mySidenav" class="sidenav">
         <h3 class="logo">CourseMatrics</h3>
@@ -27,11 +27,9 @@
         {{-- <a href="{{route('studentHome')}}"><button class={{(\Request::route()->getName() == 'studentHome')  ? 'sidenav-active-link' : '' }} ><i class="fa fa-file"></i> Student Dashboard</button></a>
         <a href="{{route('studentAttendance')}}"><button class={{(\Request::route()->getName() == 'studentAttendance')  ? 'sidenav-active-link' : '' }}><i class="fa fa-book"></i> Attendance</button></a> --}}
         {{-- <h5>Teacher</h5> --}}
-        <a href="{{route('teacherHome')}}"><button class="{{(\Request::route()->getName() == 'teacherHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
-            Marks Analysis</button></a>
-            <a href="{{route('attendanceForm')}}"><button class="{{(\Request::route()->getName() == 'attendanceForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
-                Attendance Form</button></a>
-    
+        <a href="{{route('adminHome')}}"><button class="{{(\Request::route()->getName() == 'adminHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
+            Student Confirm</button></a>
+
         <div>
 
             <a href="javascipt:void(0)" class="closebtn">
@@ -90,22 +88,5 @@
 
     <script src="js/script.js"></script>
 </body>
-@else
-<body style="position: fixed;top:auto;left:auto;">
 
-  
-        {{ Auth::user()->fname }} Please wait for admin to approve 
-
-
-    <a style="padding-left:1rem " href="{{ route('logout') }}"
-    onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-     {{ __('Logout') }}
- </a>
-
- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-     @csrf
- </form>
-</body>
-@endif
 </html>
