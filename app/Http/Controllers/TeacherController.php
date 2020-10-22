@@ -11,7 +11,7 @@ class TeacherController extends Controller
         
 
         $subjectList="Select Distinct * from Subject";
-        $subjectList=DB::select($subjectList);
+    $subjectList=DB::select($subjectList);
         $examList="select distinct * from Exams;";
         $examList=DB::select($examList);
 
@@ -55,15 +55,23 @@ class TeacherController extends Controller
             // dd($MarksGraph)
 
             // //attendance graph
-            // $AttendanceGraph1='';
-            // $AttendanceGraph2='';
-            // $AttendanceGraph3='';
-            // $AttendanceGraph4='';
-            // $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
-            // $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
-            // $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
+            $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+            $AttendanceGraph2="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 51 AND 75 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+            $AttendanceGraph3="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 76 AND 100 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+
+            $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
+            $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
+            $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
             // $AttendanceGraph4=DB::select($AttendanceGraph4)[0]->m;
-            // $AttendanceGraph=array($AttendanceGraph1,$AttendanceGraph2,$AttendanceGraph3,$AttendanceGraph4);
+            $AttendanceGraph=array($AttendanceGraph1*100,$AttendanceGraph2*100,$AttendanceGraph3*100);
+            // dd($AttendanceGraph,$MarksGraph);
+            
 
 
             //getting data from the db
@@ -93,7 +101,7 @@ class TeacherController extends Controller
 
 
         }
-
+        // dd($AttendanceGraph);
         return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,
         'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution,
         'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin,'attendanceDistribution'=>$attendanceDistribution,

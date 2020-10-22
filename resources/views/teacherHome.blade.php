@@ -237,9 +237,10 @@
 <script>
     var canvas = document.getElementById("markschart");
     var ctx = canvas.getContext('2d');
-    var MarksGraphs1= {!! json_encode($MarksGraph) !!};
-    var AttendanceGraphs1= {!! json_encode($AttendanceGraph) !!};
+    var MarksGraphs1= {!! json_encode($MarksGraph ) !!};
+
     
+
     // Global Options:
     Chart.defaults.global.defaultFontColor = 'black';
     Chart.defaults.global.defaultFontSize = 16;
@@ -295,10 +296,11 @@
         data: data,
         options: options
     });
-
+</script>
+<script>
     var canvasatt = document.getElementById("attchart");
     var ctxatt = canvasatt.getContext('2d');
-
+    var AttendanceGraph= {!! json_encode($AttendanceGraph ) !!};
     // Global Options:
     Chart.defaults.global.defaultFontColor = 'black';
     Chart.defaults.global.defaultFontSize = 16;
@@ -327,7 +329,7 @@
                     '#9B3192',
                     '#57167E'
                 ],*/
-                data: [20, 40, 30],
+                data: AttendanceGraph,
                 borderWidth: [2, 2, 2, 2]
             }
         ]
