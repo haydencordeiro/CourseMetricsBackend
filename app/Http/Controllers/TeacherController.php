@@ -19,6 +19,8 @@ class TeacherController extends Controller
         $toppersList=array();
         $lowScoreList=array();
         $marksDistribution=array();
+        $attendanceDistribution=array();
+
         $attendanceMax=array();
         $attendanceMin=array();
         
@@ -48,10 +50,12 @@ class TeacherController extends Controller
             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
             AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks  LIMIT 5";
            $lowScoreList=DB::select($lowScoreList);
+           $attendanceDistribution="SELECT Round(MAX(Enrolls.NoOfLec*100/ Subject.LectureNo)) max ,Round(MIN(Enrolls.NoOfLec*100/ Subject.LectureNo)) min,Round(AVG(Enrolls.NoOfLec*100/ Subject.LectureNo)) avg FROM Enrolls JOIN Subject where Enrolls.SubFK='$subjSelect' and Subject.SubjectName='$subjSelect'";
+           $attendanceDistribution=DB::select($attendanceDistribution);
            $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
            $marksDistribution=DB::select($marksDistribution);
             
-            // dd($marksDistribution);
+            // dd($attendanceDistribution,$attendanceMax);
         // dd($semSelect,$deptSelect,$classSelect,$subjSelect,$examSelect);
 
 
@@ -59,7 +63,7 @@ class TeacherController extends Controller
 
         return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,
         'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution,
-        'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin]);
+        'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin,'attendanceDistribution'=>$attendanceDistribution]);
 
     }
     public function attendanceForm(){

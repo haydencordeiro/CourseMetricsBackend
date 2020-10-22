@@ -209,21 +209,23 @@
             </div>
         </div>
         <div class="flex-40 verticalFlex">
+            @foreach($attendanceDistribution as $marks)
             <div class="card verticalFlexItem" style="margin-bottom: 1.5%;">
-                <h6>Impressions</h6>
-                <h3 style="color: #4098FE;">1250</h3>
+                <h6>Maximum Attendance</h6>
+                <h3 style="color: #4098FE;">{{$marks->max}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
             <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
-                <h6>Sales</h6>
-                <h3 style="color: #FF5370;">1250</h3>
+                <h6>Average Attendance</h6>
+                <h3 style="color: #FF5370;">{{$marks->avg}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
             <div class="card verticalFlexItem" style="margin-top: 1.5%;">
-                <h6>Visitors</h6>
-                <h3 style="color: #FFB64D;">1250</h3>
+                <h6>Lowest Attendance</h6>
+                <h3 style="color: #FFB64D;">{{$marks->min}}</h3>
                 <h5>May 2020 - June 2021</h5>
             </div>
+            @endforeach
 
         </div>
     </div>
