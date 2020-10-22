@@ -33,12 +33,15 @@ class LoginController extends Controller
     {
         $user = Auth::user();
         $id = Auth::id();
-        $teacher="SELECT count(*) c FROM `Teacher` 
-        WHERE Uid=$id";
-        $teacher=DB::select($teacher);
+        $verifiedNo="Select Verified from users where id=$id";
+        $verifiedNo=DB::select($verifiedNo);
         // dd($teacher[0]->c);
-        if($teacher[0]->c!=0){
+        if($verifiedNo[0]->Verified==2){
             return '/teacher';
+        }
+        else if($verifiedNo[0]->Verified==3){
+            return '/admin';
+
         }
         else{
 

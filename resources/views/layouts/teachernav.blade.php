@@ -20,7 +20,7 @@
 @if( Auth::user()->Verified ==2 )
     <body>
         <div id="mySidenav" class="sidenav">
-            <h3 class="logo">CourseMatrics</h3>
+            <h3 class="logo">CourseMetrics</h3>
             <h5>Navigation</h5>
 
             {{-- <a href="#"><button class="sidenav-active-link"><i class="fa fa-tachometer"></i>Home</button></a>

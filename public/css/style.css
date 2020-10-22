@@ -656,10 +656,10 @@ ul.breadcrumb li a:hover {
     }
 }
 
-#attendanceTable {
+.attendanceTable {
     border-collapse: collapse;
     border-spacing: 0;
-    width: 94%;
+    min-width: 100%;
     margin: auto;
     text-align: center;
 }
@@ -868,7 +868,75 @@ td {
 .table_inside_row > div {
     margin: 1%;
 }
+.custom-select {
+    position: relative;
+    font-family: Arial;
+}
 
+/* custom select */
+
+.custom-select select {
+    display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+    background-color: #4099ff;
+    border-radius: 5px;
+    min-height: 29px;
+    min-width: 140px;
+    padding: 16x;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 26px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 18px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,
+.select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+}
+.select-selected {
+    padding-top: 1rem;
+}
+
+/* Style items (options): */
+.select-items {
+    position: absolute;
+    background-color: #8bb8ec;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+    display: none;
+}
+
+.select-items div:hover,
+.same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 .formInput {
     font-family: "Quicksand", sans-serif;
     font-weight: 500;
