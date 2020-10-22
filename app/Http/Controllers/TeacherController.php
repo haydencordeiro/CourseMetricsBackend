@@ -19,6 +19,8 @@ class TeacherController extends Controller
         $toppersList=array();
         $lowScoreList=array();
         $marksDistribution=array();
+        $attendanceMax=array();
+        $attendanceMin=array();
         
 
         if( $request->isMethod('post'))
@@ -28,8 +30,16 @@ class TeacherController extends Controller
             $classSelect=$request->input('classSelect');
             $subjSelect=$request->input('subjSelect');
             $examSelect=$request->input('examSelect');
-
+            
             //data from db
+            $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+             WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+            ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
+            $attendanceMax=DB::select($attendanceMax);
+            $attendanceMin="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+            WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+           ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo)  LIMIT 5";
+           $attendanceMin=DB::select($attendanceMin);
             $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
              WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
              AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
@@ -47,7 +57,9 @@ class TeacherController extends Controller
 
         }
 
-        return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution]);
+        return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,
+        'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution,
+        'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin]);
 
     }
     public function attendanceForm(){

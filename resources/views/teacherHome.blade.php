@@ -170,6 +170,8 @@
         </div>
     </div>
 @endif
+@if(count($attendanceMax)>0)
+
     <h2 style="margin: 1% 2.5% 0 2.5%;" style="margin-top:1.3rem;">Attendance Analysis</h2>
 
     <div class="flexContainer">
@@ -183,21 +185,26 @@
             <div class="card verticalFlexItem" style="margin-bottom: 1.5%;margin-top:0.3rem">
                 <h6 style="text-align: center;">Highest Performers</h6>
                 <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
-                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
-                    <tr><td>2</td><td>Athira Lonappan</td></tr>
+                    @foreach($attendanceMax as $i=>$student)
+                    <tr><td>{{++$i}}</td><td>{{$student->fname}} {{$student->lname}}</td></tr>
+                    @endforeach
+                    {{-- <tr><td>2</td><td>Athira Lonappan</td></tr>
                     <tr><td>3</td><td>Grejo Joby</td></tr>
                     <tr><td>4</td><td>Hayden Cordeiro</td></tr>
-                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr> --}}
                 </table>
             </div>
             <div class="card verticalFlexItem" style="margin-bottom: 1%; margin-top:1%;">
                 <h6 style="text-align: center;">Lowest Performers</h6>
                 <table style="width: 96%;justify-content: center;padding: 4% 2%;margin: auto;height: auto;">
-                    <tr><td>1</td><td>Pakshal Ranawat</td></tr>
+                    @foreach($attendanceMin as $i=>$student)
+                    <tr><td>{{++$i}}</td><td>{{$student->fname}} {{$student->lname}}</td></tr>
+                    @endforeach
+                    {{-- <tr><td>1</td><td>Pakshal Ranawat</td></tr>
                     <tr><td>2</td><td>Athira Lonappan</td></tr>
                     <tr><td>3</td><td>Grejo Joby</td></tr>
                     <tr><td>4</td><td>Hayden Cordeiro</td></tr>
-                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr>
+                    <tr><td>5</td><td>Manasi Anantpurkar</td></tr> --}}
                 </table>
             </div>
         </div>
@@ -220,7 +227,7 @@
 
         </div>
     </div>
-
+@endif
 </div>
 
 @section('ScriptSect')
