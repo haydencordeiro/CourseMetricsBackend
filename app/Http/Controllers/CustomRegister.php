@@ -15,7 +15,7 @@ class CustomRegister extends Controller
             $fname=$request->input('fname');
             $lname=$request->input('lname');
             $StudentID=$request->input('StudentID');
-            $phoneNo=$request->input('honeNo');
+            $phoneNo=$request->input('phoneNo');
            $DOB=$request->input('DOB');
             $dept=$request->input('dept');
             $email=$request->input('email');

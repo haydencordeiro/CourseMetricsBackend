@@ -119,9 +119,9 @@
                 <td style="border:none"></td>
                 @endfor
                 @if($subject->Present==1)
-                <td style="background-color:#2ED8B6;">{{$subject->SubFK}}</td>
+                <td style="background-color:#2ED8B6; text-align:center;">{{$subject->SubFK}}</td>
                 @else   
-                <td style="background-color: #FF5370;">{{$subject->SubFK}}</td>
+                <td style="background-color: #FF5370; text-align:center;">{{$subject->SubFK}}</td>
 
                 @endif
             @endif

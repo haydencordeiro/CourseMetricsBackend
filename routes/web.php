@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/test', function () {
-//     return view('admin_confirm');
+//     return view('add_teacher');
 // });
 
 Auth::routes();
@@ -35,7 +35,9 @@ Route::post('/attendanceForm', [App\Http\Controllers\TeacherController::class, '
 // admin
 Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
 Route::post('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
+Route::get('/adminAddTeacher', [App\Http\Controllers\adminController::class, 'AddTeacher'])->middleware('auth')->name('AddTeacher');
+Route::post('/adminAddTeacher', [App\Http\Controllers\adminController::class, 'AddTeacher'])->middleware('auth')->name('AddTeacher');
 
 //Custom Regiser
-Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
 Route::get('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
+Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');

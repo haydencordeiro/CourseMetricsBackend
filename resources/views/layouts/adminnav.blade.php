@@ -29,6 +29,8 @@
         {{-- <h5>Teacher</h5> --}}
         <a href="{{route('adminHome')}}"><button class="{{(\Request::route()->getName() == 'adminHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
             Student Confirm</button></a>
+        <a href="{{route('AddTeacher')}}"><button class="{{(\Request::route()->getName() == 'AddTeacher')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
+            Add Teachers</button></a>
 
         <div>
 
