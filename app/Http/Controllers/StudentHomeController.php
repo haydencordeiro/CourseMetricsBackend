@@ -13,7 +13,7 @@ class StudentHomeController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         // Upcoming events
-        $UActivities="select * from upcomingevents where Date  >= DATE(NOW())";
+        $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
         $UActivities=DB::select($UActivities);
         // Marks Table
         $AllSubjects="SELECT * from (SELECT * FROM Marks as m

@@ -41,3 +41,7 @@ Route::post('/adminAddTeacher', [App\Http\Controllers\adminController::class, 'A
 //Custom Regiser
 Route::get('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
 Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
+
+//Student Chapter
+Route::get('/studentChapter', [App\Http\Controllers\studentChapter::class, 'studentChapterHome'])->name('studentChapterHome');
+Route::post('/studentChapter', [App\Http\Controllers\studentChapter::class, 'studentChapterHome'])->name('studentChapterHome');

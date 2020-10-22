@@ -43,6 +43,10 @@ class LoginController extends Controller
             return '/admin';
 
         }
+        else if($verifiedNo[0]->Verified==4){
+            return '/studentChapter';
+
+        }
         else{
 
             return '/student';

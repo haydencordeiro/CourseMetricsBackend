@@ -101,7 +101,7 @@ class TeacherController extends Controller
 
     }
     public function attendanceForm(){
-        $user = Auth::user();
+        // $user = Auth::user();
         $id = Auth::id();
         $semList="SELECT Distinct sem from Subject where TFk=$id;";
         $semList=DB::select($semList);
@@ -114,7 +114,7 @@ class TeacherController extends Controller
     }
 
     public function attendanceFormPost(Request $request){
-        $user = Auth::user();
+        // $user = Auth::user();
         $id = Auth::id();
         
         

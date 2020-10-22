@@ -28,20 +28,20 @@
                 <div style="display: flex;flex-wrap: wrap;">
                     <div style="align-self: center;">
                         <!-- <i class="fa fa-user-circle fa-3x" style="color: #4099ff;"></i> -->
-                        @if(strtoupper($activity->ChapterName[0])=="A")
+                        @if(strtoupper($activity->fname[0])=="A")
                         <h2 class="profileLetter" style="background-color: #4099ff;">A</h2>
-                        @elseif(strtoupper($activity->ChapterName[0])=="C")
+                        @elseif(strtoupper($activity->fname[0])=="C")
                         <h2 class="profileLetter" style="background-color: #2ED8B6;">C</h2>
-                        @elseif(strtoupper($activity->ChapterName[0])=="I")
+                        @elseif(strtoupper($activity->fname[0])=="I")
                         <h2 class="profileLetter" style="background-color: #FFB64D;">I</h2>
                         @else
-                        <h2 class="profileLetter" style="background-color: #FFB64D;">{{$activity->ChapterName[0]}}</h2>
+                        <h2 class="profileLetter" style="background-color: #FFB64D;">{{$activity->fname[0]}}</h2>
 
                         @endif
                     </div>
 
                     <div style="text-align: left;align-self: center;font-size: 15px;">
-                    <b>{{$activity->ChapterName}}</b><br> {{$activity->Email}}
+                    <b>{{$activity->fname}} {{$activity->lname}}</b><br> {{$activity->email}}
                     </div>
                 </div>
 
