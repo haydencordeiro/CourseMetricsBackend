@@ -50,11 +50,11 @@
                         <div class="tab">
                             <div class="inputContainer">
                                 <i class="fa fa-clock-o"></i>
-                                <select name="year" id="year" oninput="this.className = ''">
-                                    <option value="first year">First Year</option>
-                                    <option value="second year">Second Year</option>
-                                    <option value="third year">Third Year</option>
-                                    <option value="fourth year">Fourth Year</option>
+                                <select name="dept" id="dept" oninput="this.className = ''">
+                                    <option value="COMPS">Computer</option>
+                                    <option value="IT">IT</option>
+                                    <option value="EXTC">EXTC</option>
+                                    <option value="MECH">MECH</option>
                                 </select>
                             </div>
                             <div class="inputContainer">

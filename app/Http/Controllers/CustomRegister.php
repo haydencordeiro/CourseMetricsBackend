@@ -17,24 +17,24 @@ class CustomRegister extends Controller
             $StudentID=$request->input('StudentID');
             $phoneNo=$request->input('honeNo');
            $DOB=$request->input('DOB');
-            $year=$request->input('year');
+            $dept=$request->input('dept');
             $email=$request->input('email');
             $pswd=Hash::make($request->input('pswd'));
             $classSelect=$request->input('classSelect');
             $sem=$request->input('sem');
             $rollNo=$request->input('rollNo');
             $insertUser="INSERT INTO `users` 
-            (`id`, `fname`, `lname`, `SID`, `phoneno`, `birth_date`, `year`, `email`, `Verified`, `password`, `remember_token`, `created_at`, `updated_at`, `Dept`) 
+            (`id`, `fname`, `lname`, `SID`, `phoneno`, `birth_date`, `email`, `Verified`, `password`, `remember_token`, `created_at`, `updated_at`) 
             VALUES (NULL, '$fname', '$lname', '$StudentID', '$phoneNo',
-             '$DOB', '$year', '$email', 
-             0, '$pswd', NULL, NULL, NULL, 'Comps');";
+             '$DOB', '$email', 
+             0, '$pswd', NULL, NULL, NULL);";
             //  dd);
              $insertUser=DB::select($insertUser);
              $user="SELECT id FROM `users` WHERE SID='$StudentID'";
              $user=DB::select($user);
              $user=$user[0]->id;
             //  dd($user[0]->id);
-             $insertStudent="INSERT INTO `Student` (`UID`, `Sem`, `rollNo`, `Class`) VALUES ('$user', $sem, $rollNo, '$classSelect');";
+             $insertStudent="INSERT INTO `Student` (`UID`, `Sem`, `rollNo`, `Class`,`Dept`) VALUES ('$user', $sem, $rollNo, '$classSelect','$dept');";
              $insertStudent=DB::select($insertStudent);
             //   dd($insertStudent);
 
