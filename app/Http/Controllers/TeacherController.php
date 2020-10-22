@@ -15,15 +15,16 @@ class TeacherController extends Controller
         $examList="select distinct * from Exams;";
         $examList=DB::select($examList);
 
-        //temp variables incase first get request
-        $toppersList=array();
+        //temp variables incase first get request so then there is no error in the return 
+        $toppersList=array(); 
         $lowScoreList=array();
         $marksDistribution=array();
         $attendanceDistribution=array();
-
         $attendanceMax=array();
         $attendanceMin=array();
-        
+        $MarksGraph=array();
+        $AttendanceGraph=array();
+
 
         if( $request->isMethod('post'))
         {
@@ -33,7 +34,39 @@ class TeacherController extends Controller
             $subjSelect=$request->input('subjSelect');
             $examSelect=$request->input('examSelect');
             
-            //data from db
+
+
+            //marks graph
+            $MarksGraph1="SELECT COUNT(SFK) m FROM Marks JOIN Exams WHERE Marks.ExamFk=(SELECT Exams.id 
+            FROM Exams WHERE Exams.Name='$examSelect') AND Marks.SubFk='$subjSelect' AND Marks.Marks BETWEEN 0 AND 8";
+            $MarksGraph2="SELECT COUNT(SFK) m FROM Marks JOIN Exams WHERE Marks.ExamFk=(SELECT Exams.id 
+            FROM Exams WHERE Exams.Name='$examSelect') AND Marks.SubFk='$subjSelect' AND Marks.Marks BETWEEN 9 AND 12";
+            $MarksGraph3="SELECT COUNT(SFK) m FROM Marks JOIN Exams WHERE Marks.ExamFk=(SELECT Exams.id 
+            FROM Exams WHERE Exams.Name='$examSelect') AND Marks.SubFk='$subjSelect' AND Marks.Marks BETWEEN 13 AND 17";
+            $MarksGraph4="SELECT COUNT(SFK) m FROM Marks JOIN Exams WHERE Marks.ExamFk=(SELECT Exams.id
+            FROM Exams WHERE Exams.Name='$examSelect') AND Marks.SubFk='$subjSelect' AND Marks.Marks BETWEEN 18 AND 20";
+            
+
+            $MarksGraph1=DB::select($MarksGraph1)[0]->m;
+            $MarksGraph2=DB::select($MarksGraph2)[0]->m;
+            $MarksGraph3=DB::select($MarksGraph3)[0]->m;
+            $MarksGraph4=DB::select($MarksGraph4)[0]->m;
+            $MarksGraph=array($MarksGraph1,$MarksGraph2,$MarksGraph3,$MarksGraph4);
+            // dd($MarksGraph)
+
+            // //attendance graph
+            // $AttendanceGraph1='';
+            // $AttendanceGraph2='';
+            // $AttendanceGraph3='';
+            // $AttendanceGraph4='';
+            // $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
+            // $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
+            // $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
+            // $AttendanceGraph4=DB::select($AttendanceGraph4)[0]->m;
+            // $AttendanceGraph=array($AttendanceGraph1,$AttendanceGraph2,$AttendanceGraph3,$AttendanceGraph4);
+
+
+            //getting data from the db
             $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
              WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
             ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
@@ -63,7 +96,8 @@ class TeacherController extends Controller
 
         return view('teacherHome',['subjectList'=>$subjectList,'examList'=>$examList,'toppersList'=>$toppersList,
         'lowScoreList'=>$lowScoreList,'marksDistribution'=>$marksDistribution,
-        'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin,'attendanceDistribution'=>$attendanceDistribution]);
+        'attendanceMax'=>$attendanceMax,'attendanceMin'=>$attendanceMin,'attendanceDistribution'=>$attendanceDistribution,
+        'AttendanceGraph'=>$AttendanceGraph,'MarksGraph'=>$MarksGraph]);
 
     }
     public function attendanceForm(){
