@@ -36,3 +36,6 @@ Route::post('/attendanceForm', [App\Http\Controllers\TeacherController::class, '
 Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
 Route::post('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
 
+//Custom Regiser
+Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
+Route::get('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');

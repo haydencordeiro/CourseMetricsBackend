@@ -68,7 +68,31 @@
                             </div>
 
                         </div>
+                        <div class="tab">
+                            <div class="inputContainer">
+                                <i class="fa fa-clock-o"></i>
+                                <select name="sem" id="sem" oninput="this.className = ''">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="inputContainer">
+                                <i class="fa fa-clock-o"></i>
+                                <select name="classSelect" id="classSelect" oninput="this.className = ''">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                            </div>
+                            <div class="inputContainer">
+                                <i class="fa fa-id-card"></i>
+                                <input type="number" name="rollNo" id="rollNo"  placeholder="rollNo" oninput="this.className = ''">
+                            </div>
 
+                        </div>
                         <div class="tab">
                             <div class="inputContainer">
                                 <i class="fa fa-internet-explorer"></i>
