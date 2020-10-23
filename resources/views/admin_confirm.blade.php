@@ -63,17 +63,19 @@
                 </div> --}}
                 <div style="margin-top: 1.5%;">
                     <div class="dropdown">
-                        <button class="dropbtn btn-danger"  onclick="getSelected();">Remove</button>
+                        <button class="dropbtn btn-success"  onclick="getSelected();">Approve</button>
                     </div>
                 </div>
             </div>
             <table class="attendance_form_table">
                 <thead>
                     <tr>
+                        <th><input type="checkbox"  onchange="checkAll(this)"></th>
                         <th>Admit</th>
                         <th>Roll No.</th>
                         <th>Student ID</th>                        
                         <th>Name</th>
+                        
                     </tr>
                 </thead>
                 <tbody id="attendance_form_table_data">
@@ -124,6 +126,23 @@
     <script src="js/script.js"></script>
 
     <script>
+ function checkAll(ele) {
+     var checkboxes = document.getElementsByTagName('input');
+     if (ele.checked) {
+         for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = true;
+             }
+         }
+     } else {
+         for (var i = 0; i < checkboxes.length; i++) {
+             console.log(i)
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = false;
+             }
+         }
+     }
+ }
 
         $(document).ready(function () {
             $("#search_box").on("keyup", function () {

@@ -32,11 +32,11 @@ class adminController extends Controller
 
                     
                     
+                    $ApproveStudent="UPDATE users SET Verified = 1 WHERE id= $student->id ;";
+                    $ApproveStudent=DB::statement($ApproveStudent);
                     
                 }
                 else{
-                    $ApproveStudent="UPDATE users SET Verified = 1 WHERE id= $student->id ;";
-                    $ApproveStudent=DB::statement($ApproveStudent);
                     
                 }
 
@@ -68,7 +68,7 @@ class adminController extends Controller
             (`id`, `fname`, `lname`, `SID`, `phoneno`, `birth_date`, `email`, `Verified`, `password`, `remember_token`, `created_at`, `updated_at`) 
             VALUES (NULL, '$fname', '$lname', '$StudentID', '$phoneNo',
              '$DOB', '$email', 
-             0, '$pswd', NULL, NULL, NULL);";
+             2, '$pswd', NULL, NULL, NULL);";
             //  dd);
              $insertUser=DB::select($insertUser);
              $user="SELECT id FROM `users` WHERE SID='$StudentID'";
