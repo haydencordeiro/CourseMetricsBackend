@@ -62,7 +62,7 @@ class TeacherController extends Controller
             // //attendance graph
 
 
-            Cache::remember('TeacherHome.attendanceGraph', 5, function() use ($subjSelect) {
+            $AttendanceGraph=Cache::remember('TeacherHome.attendanceGraph', 5, function() use ($subjSelect) {
 
                 $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
                 FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
@@ -81,7 +81,7 @@ class TeacherController extends Controller
                 $AttendanceGraph=array($AttendanceGraph1*100,$AttendanceGraph2*100,$AttendanceGraph3*100);
                 return $AttendanceGraph;
              });
-            $AttendanceGraph=Cache::get( 'TeacherHome.attendanceGraph' );
+            // $AttendanceGraph=Cache::get( 'TeacherHome.attendanceGraph' );
     
             // $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
             // FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
@@ -103,7 +103,7 @@ class TeacherController extends Controller
 
 
             //getting data from the db
-            Cache::remember('attendanceForm.attendanceMax', 5, function() use ($subjSelect) {
+            $attendanceMax=Cache::remember('attendanceForm.attendanceMax', 5, function() use ($subjSelect) {
 
                 $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
                 WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
@@ -111,8 +111,8 @@ class TeacherController extends Controller
                $attendanceMax=DB::select($attendanceMax);
                 return $attendanceMax;
              });
-            $attendanceMax=Cache::get( 'attendanceForm.attendanceMax' );
-            Cache::remember('attendanceForm.attendanceMin', 5, function() use ($subjSelect) {
+            // $attendanceMax=Cache::get( 'attendanceForm.attendanceMax' );
+            $attendanceMin=Cache::remember('attendanceForm.attendanceMin', 5, function() use ($subjSelect) {
 
                 $attendanceMin="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
                 WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
@@ -120,7 +120,7 @@ class TeacherController extends Controller
                $attendanceMin=DB::select($attendanceMin);
                 return $attendanceMin;
              });
-            $attendanceMin=Cache::get( 'attendanceForm.attendanceMin' );
+            // $attendanceMin=Cache::get( 'attendanceForm.attendanceMin' );
             // $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
             //  WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
             // ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
@@ -129,7 +129,7 @@ class TeacherController extends Controller
         //     WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
         //    ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo)  LIMIT 5";
         //    $attendanceMin=DB::select($attendanceMin);
-        Cache::remember('attendanceForm.toppersList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
+        $toppersList=Cache::remember('attendanceForm.toppersList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
 
             $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
@@ -137,8 +137,8 @@ class TeacherController extends Controller
            $toppersList=DB::select($toppersList);
             return $toppersList;
          });
-        $toppersList=Cache::get( 'attendanceForm.toppersList' );
-        Cache::remember('attendanceForm.lowScoreList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
+        // $toppersList=Cache::get( 'attendanceForm.toppersList' );
+        $lowScoreList=Cache::remember('attendanceForm.lowScoreList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
 
             $lowScoreList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
@@ -146,7 +146,7 @@ class TeacherController extends Controller
            $lowScoreList=DB::select($lowScoreList);
             return $lowScoreList;
          });
-        $lowScoreList=Cache::get( 'attendanceForm.lowScoreList' );
+        // $lowScoreList=Cache::get( 'attendanceForm.lowScoreList' );
             // $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
             //  WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
             //  AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
@@ -155,7 +155,7 @@ class TeacherController extends Controller
         //     WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
         //     AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks  LIMIT 5";
         //    $lowScoreList=DB::select($lowScoreList);
-        Cache::remember('attendanceForm.attendanceDistribution', 5, function() use ($subjSelect) {
+        $attendanceDistribution=Cache::remember('attendanceForm.attendanceDistribution', 5, function() use ($subjSelect) {
 
             $attendanceDistribution="SELECT Round(MAX(Enrolls.NoOfLec*100/ Subject.LectureNo)) max ,
             Round(MIN(Enrolls.NoOfLec*100/ Subject.LectureNo)) min,Round(AVG(Enrolls.NoOfLec*100/ Subject.LectureNo)) avg 
@@ -169,14 +169,14 @@ class TeacherController extends Controller
         
         //    $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
         //    $marksDistribution=DB::select($marksDistribution);
-           Cache::remember('attendanceForm.marksDistribution', 5, function() use ($subjSelect,$examSelect) {
+           $marksDistribution=Cache::remember('attendanceForm.marksDistribution', 5, function() use ($subjSelect,$examSelect) {
 
             $marksDistribution="SELECT MAX(Marks) max,Round(AVG(Marks)) avg , Min(Marks) min FROM Marks where Marks.SubFk='$subjSelect' 
             AND Marks.ExamFk=(SELECT Exams.id FROM Exams WHERE Name='$examSelect')";
            $marksDistribution=DB::select($marksDistribution);
             return $marksDistribution;
          });
-        $marksDistribution=Cache::get( 'attendanceForm.marksDistribution' ); 
+        // $marksDistribution=Cache::get( 'attendanceForm.marksDistribution' ); 
             // dd($attendanceDistribution,$attendanceMax);
         // dd($semSelect,$deptSelect,$classSelect,$subjSelect,$examSelect);
 
@@ -193,20 +193,20 @@ class TeacherController extends Controller
         // $user = Auth::user();
         
         $id = Auth::id();
-        Cache::remember('attendanceForm.semList', 5, function() use ($id) {
+        $semList=Cache::remember('attendanceForm.semList', 5, function() use ($id) {
             $semList="SELECT Distinct sem from Subject where TFk=$id;";
             $semList=DB::select($semList);
             return $semList;
          });
-        $semList=Cache::get( 'attendanceForm.semList' );
+        // $semList=Cache::get( 'attendanceForm.semList' );
 
 
-        Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
+        $subjectList=Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
             $subjectList="Select * from Subject where TFk=$id;";
             $subjectList=DB::select($subjectList);
             return $subjectList;
          });
-        $subjectList=Cache::get( 'attendanceForm.subjectList' );
+        // $subjectList=Cache::get( 'attendanceForm.subjectList' );
 
 
         
@@ -220,20 +220,20 @@ class TeacherController extends Controller
         
         $checkWhich=$request->input('checkWhich');
 
-        Cache::remember('attendanceForm.semList', 5, function() use ($id) {
+        $semList=Cache::remember('attendanceForm.semList', 5, function() use ($id) {
             $semList="SELECT Distinct sem from Subject where TFk=$id;";
             $semList=DB::select($semList);
             return $semList;
          });
-        $semList=Cache::get( 'attendanceForm.semList' );
+        // $semList=Cache::get( 'attendanceForm.semList' );
 
 
-        Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
+        $subjectList=Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
             $subjectList="Select * from Subject where TFk=$id;";
             $subjectList=DB::select($subjectList);
             return $subjectList;
          });
-        $subjectList=Cache::get( 'attendanceForm.subjectList' );
+        // $subjectList=Cache::get( 'attendanceForm.subjectList' );
 
 
 

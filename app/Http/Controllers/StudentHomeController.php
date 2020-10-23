@@ -16,14 +16,15 @@ class StudentHomeController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         // Upcoming events
+
         $toppersList=Cache::get( 'studentHome.toppersList' );
-        Cache::remember('studentHome.UActivities', 5, function()  {
+        $UActivities=Cache::remember('studentHome.UActivities',300, function()  {
 
             $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
             $UActivities=DB::select($UActivities);
             return $UActivities;
          });
-        $UActivities=Cache::get( 'studentHome.UActivities' );
+        // $UActivities=Cache::get( 'studentHome.UActivities' );
         // $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
         // $UActivities=DB::select($UActivities);
         // Marks Table
@@ -39,7 +40,7 @@ class StudentHomeController extends Controller
         // WHERE m.SFK= $id )";
         // $AllSubjects=DB::select($AllSubjects);
         // dd($AllSubjects);
-        Cache::remember('studentHome.AllSubjects', 5, function() use($id) {
+        $AllSubjects=Cache::remember('studentHome.AllSubjects',300, function() use($id) {
             $AllSubjects="SELECT * from (SELECT * FROM Marks as m
             JOIN Subject as s
             on(m.SubFk=s.SubjectName)
@@ -56,13 +57,13 @@ class StudentHomeController extends Controller
         $AllSubjects=Cache::get('studentHome.AllSubjects' );
 
         // Pie Chart (Graph 1)
-        Cache::remember('studentHome.graph1', 5, function() use($id) {
+        $graph1= Cache::remember('studentHome.graph1',300, function() use($id) {
             $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
             join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
            $graph1=DB::select($graph1);
             return $graph1;
          });
-        $graph1=Cache::get('studentHome.graph1' );
+        // $graph1=Cache::get('studentHome.graph1' );
         // $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
         //  join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
         // $graph1=DB::select($graph1);
@@ -79,7 +80,7 @@ class StudentHomeController extends Controller
 
         // Line Graph;
 
-        Cache::remember('studentHome.linegraph2', 5, function() use($id) {
+        $finalLineGraphtemp=Cache::remember('studentHome.linegraph2',5, function() use($id) {
             $line1=array();
             $line2=array();
             $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 and SFK=$id GROUP by Month(date),SubFK;";
@@ -113,7 +114,7 @@ class StudentHomeController extends Controller
                 }
                 return array($months,$tempArray2);
          });
-        $finalLineGraphtemp=Cache::get('studentHome.linegraph2' );
+        // $finalLineGraphtemp=Cache::get('studentHome.linegraph2' );
         // $line1=array();
         // $line2=array();
         // $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
