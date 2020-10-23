@@ -17,8 +17,8 @@ class StudentHomeController extends Controller
         $id = Auth::id();
         // Upcoming events
 
-        $toppersList=Cache::get( 'studentHome.toppersList' );
-        $UActivities=Cache::remember('studentHome.UActivities',300, function()  {
+        // $toppersList=Cache::get( 'studentHome.toppersList' );
+        $UActivities=Cache::remember('studentHome.UActivities',5, function()  {
 
             $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
             $UActivities=DB::select($UActivities);
@@ -40,7 +40,7 @@ class StudentHomeController extends Controller
         // WHERE m.SFK= $id )";
         // $AllSubjects=DB::select($AllSubjects);
         // dd($AllSubjects);
-        $AllSubjects=Cache::remember('studentHome.AllSubjects',300, function() use($id) {
+        $AllSubjects=Cache::remember('studentHome.AllSubjects',5, function() use($id) {
             $AllSubjects="SELECT * from (SELECT * FROM Marks as m
             JOIN Subject as s
             on(m.SubFk=s.SubjectName)
@@ -57,7 +57,8 @@ class StudentHomeController extends Controller
         $AllSubjects=Cache::get('studentHome.AllSubjects' );
 
         // Pie Chart (Graph 1)
-        $graph1= Cache::remember('studentHome.graph1',300, function() use($id) {
+        // dd("studentHome.graph1 {$id}");
+        $graph1= Cache::remember("studentHome.graph1 {$id}",5, function() use($id) {
             $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
             join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
            $graph1=DB::select($graph1);
@@ -80,7 +81,7 @@ class StudentHomeController extends Controller
 
         // Line Graph;
 
-        $finalLineGraphtemp=Cache::remember('studentHome.linegraph2',5, function() use($id) {
+        $finalLineGraphtemp=Cache::remember("studentHome.linegraph2 {$id}",5, function() use($id) {
             $line1=array();
             $line2=array();
             $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 and SFK=$id GROUP by Month(date),SubFK;";
