@@ -207,7 +207,7 @@ class TeacherController extends Controller
         // $subjectList=Cache::get( 'attendanceForm.subjectList' );
 
 
-        
+        // dd('here');
         return view('attendanceForm',['semList'=>$semList,'allStudent'=>array(),'subjectList'=>$subjectList]);
     }
 

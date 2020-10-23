@@ -31,26 +31,27 @@ class LoginController extends Controller
     // protected $redirectTo = '/';
     protected function redirectTo()
     {
-        $user = Auth::user();
-        $id = Auth::id();
-        $verifiedNo="Select Verified from users where id=$id";
-        $verifiedNo=DB::select($verifiedNo);
-        // dd($teacher[0]->c);
-        if($verifiedNo[0]->Verified==2){
-            return '/teacher';
-        }
-        else if($verifiedNo[0]->Verified==3){
-            return '/admin';
+        return '/home';
+        // $user = Auth::user();
+        // $id = Auth::id();
+        // $verifiedNo="Select Verified from users where id=$id";
+        // $verifiedNo=DB::select($verifiedNo);
+        // // dd($teacher[0]->c);
+        // if($verifiedNo[0]->Verified==2){
+        //     return '/teacher';
+        // }
+        // else if($verifiedNo[0]->Verified==3){
+        //     return '/admin';
 
-        }
-        else if($verifiedNo[0]->Verified==4){
-            return '/studentChapter';
+        // }
+        // else if($verifiedNo[0]->Verified==4){
+        //     return '/studentChapter';
 
-        }
-        else{
+        // }
+        // else{
 
-            return '/student';
-        }
+        //     return '/student';
+        // }
 
     }
 
