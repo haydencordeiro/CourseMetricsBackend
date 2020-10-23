@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
+use Cache;
+use Illuminate\Contracts\Cache\Factory;
+use Illuminate\Contracts\Cache\Repository;
 class StudentHomeController extends Controller
 {
     
@@ -13,26 +16,56 @@ class StudentHomeController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         // Upcoming events
-        $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
-        $UActivities=DB::select($UActivities);
+        $toppersList=Cache::get( 'studentHome.toppersList' );
+        Cache::remember('studentHome.UActivities', 5, function()  {
+
+            $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
+            $UActivities=DB::select($UActivities);
+            return $UActivities;
+         });
+        $UActivities=Cache::get( 'studentHome.UActivities' );
+        // $UActivities="select * from upcomingevents  join users on (users.id=upcomingevents.UFK) where Date  >= DATE(NOW())";
+        // $UActivities=DB::select($UActivities);
         // Marks Table
-        $AllSubjects="SELECT * from (SELECT * FROM Marks as m
-        JOIN Subject as s
-        on(m.SubFk=s.SubjectName)
-        join Exams as e
-        on (e.id=m.ExamFk)
-        WHERE m.SFK= $id ) allrows
-        where sem=(SELECT MAX(sem) FROM Marks as m
-        JOIN Subject as s
-        on(m.SubFk=s.SubjectName)
-        WHERE m.SFK= $id )";
-        $AllSubjects=DB::select($AllSubjects);
+        // $AllSubjects="SELECT * from (SELECT * FROM Marks as m
+        // JOIN Subject as s
+        // on(m.SubFk=s.SubjectName)
+        // join Exams as e
+        // on (e.id=m.ExamFk)
+        // WHERE m.SFK= $id ) allrows
+        // where sem=(SELECT MAX(sem) FROM Marks as m
+        // JOIN Subject as s
+        // on(m.SubFk=s.SubjectName)
+        // WHERE m.SFK= $id )";
+        // $AllSubjects=DB::select($AllSubjects);
         // dd($AllSubjects);
+        Cache::remember('studentHome.AllSubjects', 5, function() use($id) {
+            $AllSubjects="SELECT * from (SELECT * FROM Marks as m
+            JOIN Subject as s
+            on(m.SubFk=s.SubjectName)
+            join Exams as e
+            on (e.id=m.ExamFk)
+            WHERE m.SFK= $id ) allrows
+            where sem=(SELECT MAX(sem) FROM Marks as m
+            JOIN Subject as s
+            on(m.SubFk=s.SubjectName)
+            WHERE m.SFK= $id )";
+            $AllSubjects=DB::select($AllSubjects);
+            return $AllSubjects;
+         });
+        $AllSubjects=Cache::get('studentHome.AllSubjects' );
 
         // Pie Chart (Graph 1)
-        $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
-         join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
-        $graph1=DB::select($graph1);
+        Cache::remember('studentHome.graph1', 5, function() use($id) {
+            $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
+            join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
+           $graph1=DB::select($graph1);
+            return $graph1;
+         });
+        $graph1=Cache::get('studentHome.graph1' );
+        // $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
+        //  join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
+        // $graph1=DB::select($graph1);
         $graph1Labels=array();
         $graph1Marks=array();
         foreach($graph1 as $temp){
@@ -47,9 +80,18 @@ class StudentHomeController extends Controller
         // Line Graph;
         $line1=array();
         $line2=array();
-        $lineGraph="SELECT date,SubFK,Count(date) c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
+        $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
         $lineGraph=DB::select($lineGraph);
-        dd($lineGraph);
+        // dd($lineGraph);
+
+        $tempArray=array('coa','am-2');
+        foreach($lineGraph as $subject ){
+            // if (in_array(, $people))
+            // {
+            // echo "Match found";
+            // }
+
+        }
 
         return view('studentHome',['UpcomingActivites'=>$UActivities,'AllSubjects'=>$AllSubjects,
         'graph1Labels'=>$graph1Labels,'graph1Marks'=>$graph1Marks]);
