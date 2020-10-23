@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
+use Cache;
+use Illuminate\Contracts\Cache\Factory;
+use Illuminate\Contracts\Cache\Repository;
 class TeacherController extends Controller
 {
+
+   
     public function home(Request $request){
        
         
@@ -55,47 +60,123 @@ class TeacherController extends Controller
             // dd($MarksGraph)
 
             // //attendance graph
-            $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
-            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
-            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
-            $AttendanceGraph2="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
-            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 51 AND 75 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
-            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
-            $AttendanceGraph3="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
-            FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 76 AND 100 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
-            m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
 
-            $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
-            $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
-            $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
-            // $AttendanceGraph4=DB::select($AttendanceGraph4)[0]->m;
-            $AttendanceGraph=array($AttendanceGraph1*100,$AttendanceGraph2*100,$AttendanceGraph3*100);
+
+            Cache::remember('TeacherHome.attendanceGraph', 5, function() use ($subjSelect) {
+
+                $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+                FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+                m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+                $AttendanceGraph2="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+                FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 51 AND 75 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+                m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+                $AttendanceGraph3="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+                FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 76 AND 100 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+                m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+    
+                $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
+                $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
+                $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
+    
+                $AttendanceGraph=array($AttendanceGraph1*100,$AttendanceGraph2*100,$AttendanceGraph3*100);
+                return $AttendanceGraph;
+             });
+            $AttendanceGraph=Cache::get( 'TeacherHome.attendanceGraph' );
+    
+            // $AttendanceGraph1="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            // FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 0 AND 50 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            // m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+            // $AttendanceGraph2="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            // FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 51 AND 75 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            // m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+            // $AttendanceGraph3="SELECT (SELECT COUNT(NoOfLec*100/ LectureNo) 
+            // FROM Enrolls JOIN Subject on (SubFK= SubjectName) where (NoOfLec*100/ LectureNo) BETWEEN 76 AND 100 and SubFK='$subjSelect')/COUNT(NoOfLec*100/ LectureNo) 
+            // m FROM Enrolls JOIN Subject on (SubFK= SubjectName) and SubFK='$subjSelect'";
+
+            // $AttendanceGraph1=DB::select($AttendanceGraph1)[0]->m;
+            // $AttendanceGraph2=DB::select($AttendanceGraph2)[0]->m;
+            // $AttendanceGraph3=DB::select($AttendanceGraph3)[0]->m;
+
+            // $AttendanceGraph=array($AttendanceGraph1*100,$AttendanceGraph2*100,$AttendanceGraph3*100);
             // dd($AttendanceGraph,$MarksGraph);
             
 
 
             //getting data from the db
-            $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
-             WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
-            ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
-            $attendanceMax=DB::select($attendanceMax);
-            $attendanceMin="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
-            WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
-           ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo)  LIMIT 5";
-           $attendanceMin=DB::select($attendanceMin);
+            Cache::remember('attendanceForm.attendanceMax', 5, function() use ($subjSelect) {
+
+                $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+                WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+               ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
+               $attendanceMax=DB::select($attendanceMax);
+                return $attendanceMax;
+             });
+            $attendanceMax=Cache::get( 'attendanceForm.attendanceMax' );
+            Cache::remember('attendanceForm.attendanceMin', 5, function() use ($subjSelect) {
+
+                $attendanceMin="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+                WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+               ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo)  LIMIT 5";
+               $attendanceMin=DB::select($attendanceMin);
+                return $attendanceMin;
+             });
+            $attendanceMin=Cache::get( 'attendanceForm.attendanceMin' );
+            // $attendanceMax="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+            //  WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+            // ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo) DESC LIMIT 5";
+            // $attendanceMax=DB::select($attendanceMax);
+        //     $attendanceMin="SELECT users.fname, users.lname FROM Enrolls JOIN users JOIN Subject
+        //     WHERE Enrolls.SFK=users.id AND Enrolls.SubFk='$subjSelect' AND Subject.SubjectName='$subjSelect'
+        //    ORDER BY (Enrolls.NoOfLec/ Subject.LectureNo)  LIMIT 5";
+        //    $attendanceMin=DB::select($attendanceMin);
+        Cache::remember('attendanceForm.toppersList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
+
             $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
-             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
-             AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
-            $toppersList=DB::select($toppersList);
+            WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
+            AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
+           $toppersList=DB::select($toppersList);
+            return $toppersList;
+         });
+        $toppersList=Cache::get( 'attendanceForm.toppersList' );
+        Cache::remember('attendanceForm.lowScoreList', 5, function() use ($subjSelect,$examSelect,$classSelect) {
+
             $lowScoreList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
             WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
             AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks  LIMIT 5";
            $lowScoreList=DB::select($lowScoreList);
-           $attendanceDistribution="SELECT Round(MAX(Enrolls.NoOfLec*100/ Subject.LectureNo)) max ,Round(MIN(Enrolls.NoOfLec*100/ Subject.LectureNo)) min,Round(AVG(Enrolls.NoOfLec*100/ Subject.LectureNo)) avg FROM Enrolls JOIN Subject where Enrolls.SubFK='$subjSelect' and Subject.SubjectName='$subjSelect'";
+            return $lowScoreList;
+         });
+        $lowScoreList=Cache::get( 'attendanceForm.lowScoreList' );
+            // $toppersList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
+            //  WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
+            //  AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks DESC LIMIT 5";
+            // $toppersList=DB::select($toppersList);
+        //     $lowScoreList="SELECT users.fname, users.lname FROM Marks join Exams on( Marks.ExamFk=Exams.id) JOIN users
+        //     WHERE Marks.SFK=users.id AND SubFk='$subjSelect' AND Exams.Name='$examSelect' 
+        //     AND Marks.SFK IN (SELECT Student.UID FROM Student WHERE CLASS='$classSelect') ORDER BY Marks.Marks  LIMIT 5";
+        //    $lowScoreList=DB::select($lowScoreList);
+        Cache::remember('attendanceForm.attendanceDistribution', 5, function() use ($subjSelect) {
+
+            $attendanceDistribution="SELECT Round(MAX(Enrolls.NoOfLec*100/ Subject.LectureNo)) max ,
+            Round(MIN(Enrolls.NoOfLec*100/ Subject.LectureNo)) min,Round(AVG(Enrolls.NoOfLec*100/ Subject.LectureNo)) avg 
+            FROM Enrolls JOIN Subject where Enrolls.SubFK='$subjSelect' and Subject.SubjectName='$subjSelect'";
            $attendanceDistribution=DB::select($attendanceDistribution);
-           $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
+            return $attendanceDistribution;
+         });
+        $attendanceDistribution=Cache::get( 'attendanceForm.attendanceDistribution' );
+        //    $attendanceDistribution="";
+        //    $attendanceDistribution=DB::select($attendanceDistribution);
+        
+        //    $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
+        //    $marksDistribution=DB::select($marksDistribution);
+           Cache::remember('attendanceForm.marksDistribution', 5, function() use ($subjSelect) {
+
+            $marksDistribution="SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,
+            Min(Marks) min FROM Marks where Marks.SubFk='$subjSelect' AND Marks.ExamFk=1";
            $marksDistribution=DB::select($marksDistribution);
-            
+            return $marksDistribution;
+         });
+        $marksDistribution=Cache::get( 'attendanceForm.marksDistribution' ); 
             // dd($attendanceDistribution,$attendanceMax);
         // dd($semSelect,$deptSelect,$classSelect,$subjSelect,$examSelect);
 
@@ -110,11 +191,22 @@ class TeacherController extends Controller
     }
     public function attendanceForm(){
         // $user = Auth::user();
+        
         $id = Auth::id();
-        $semList="SELECT Distinct sem from Subject where TFk=$id;";
-        $semList=DB::select($semList);
-        $subjectList="Select * from Subject where TFk=2;";
-        $subjectList=DB::select($subjectList);
+        Cache::remember('attendanceForm.semList', 5, function() use ($id) {
+            $semList="SELECT Distinct sem from Subject where TFk=$id;";
+            $semList=DB::select($semList);
+            return $semList;
+         });
+        $semList=Cache::get( 'attendanceForm.semList' );
+
+
+        Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
+            $subjectList="Select * from Subject where TFk=$id;";
+            $subjectList=DB::select($subjectList);
+            return $subjectList;
+         });
+        $subjectList=Cache::get( 'attendanceForm.subjectList' );
 
 
         
@@ -124,14 +216,25 @@ class TeacherController extends Controller
     public function attendanceFormPost(Request $request){
         // $user = Auth::user();
         $id = Auth::id();
-        
+
         
         $checkWhich=$request->input('checkWhich');
 
-        $semList="SELECT Distinct sem from Subject where TFk=$id;";
-        $semList=DB::select($semList);
-        $subjectList="Select * from Subject where TFk=2;";
-        $subjectList=DB::select($subjectList);
+        Cache::remember('attendanceForm.semList', 5, function() use ($id) {
+            $semList="SELECT Distinct sem from Subject where TFk=$id;";
+            $semList=DB::select($semList);
+            return $semList;
+         });
+        $semList=Cache::get( 'attendanceForm.semList' );
+
+
+        Cache::remember('attendanceForm.subjectList', 5, function() use ($id) {
+            $subjectList="Select * from Subject where TFk=$id;";
+            $subjectList=DB::select($subjectList);
+            return $subjectList;
+         });
+        $subjectList=Cache::get( 'attendanceForm.subjectList' );
+
 
 
         $semSelect=$request->input('semSelect');
@@ -142,7 +245,7 @@ class TeacherController extends Controller
         $allStudent="SELECT rollNo,fname,lname,UID FROM Student
         join users
         on Student.UID=users.id
-        WHERE sem=$semSelect and class='$classSelect' and users.Dept='$deptSelect' order by rollNo";
+        WHERE sem=$semSelect and class='$classSelect' and Student.Dept='$deptSelect' order by rollNo";
          $allStudent=DB::select($allStudent);
         //  dd($allStudent);
 
