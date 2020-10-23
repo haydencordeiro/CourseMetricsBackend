@@ -78,40 +78,76 @@ class StudentHomeController extends Controller
         
 
         // Line Graph;
-        $line1=array();
-        $line2=array();
-        $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
-        $lineGraph=DB::select($lineGraph);
-        // dd($lineGraph);
 
-        $tempArray=array('coa','am-2');
-        $tempArray2=array();
-        $months=array();
-        foreach($lineGraph as $subject ){
-
-            $tempArray2[$subject->c]=array();
-
-            }
+        Cache::remember('studentHome.linegraph2', 5, function() use($id) {
+            $line1=array();
+            $line2=array();
+            $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 and SFK=$id GROUP by Month(date),SubFK;";
+            $lineGraph=DB::select($lineGraph);
+            // dd($lineGraph);
+    
+            $tempArray=array('coa','am-2');
+            $tempArray2=array();
+            $months=array();
             foreach($lineGraph as $subject ){
-
-                array_push($tempArray2[$subject->c],$subject->cnt);
-                array_push($months,$subject->mon);
+    
+                $tempArray2[$subject->c]=array();
+    
+                }
+                foreach($lineGraph as $subject ){
+    
+                    array_push($tempArray2[$subject->c],$subject->cnt);
+                    array_push($months,$subject->mon);
+                    
+                }
+                $months=array_unique($months);
                 
-            }
-            $months=array_unique($months);
+                $max=0;
+                foreach($tempArray2 as $sub){
+                    $max=$max>(count($sub))?$max:(count($sub));
+                }
+                foreach($tempArray2 as $i=>$sub){
+    
+                    $tempArray2[$i]=(array_pad($sub,-$max,0));
+                    
+                }
+                return array($months,$tempArray2);
+         });
+        $finalLineGraphtemp=Cache::get('studentHome.linegraph2' );
+        // $line1=array();
+        // $line2=array();
+        // $lineGraph="SELECT Count(*) cnt, Month(date) mon,SubFk c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
+        // $lineGraph=DB::select($lineGraph);
+        // // dd($lineGraph);
+
+        // $tempArray=array('coa','am-2');
+        // $tempArray2=array();
+        // $months=array();
+        // foreach($lineGraph as $subject ){
+
+        //     $tempArray2[$subject->c]=array();
+
+        //     }
+        //     foreach($lineGraph as $subject ){
+
+        //         array_push($tempArray2[$subject->c],$subject->cnt);
+        //         array_push($months,$subject->mon);
+                
+        //     }
+        //     $months=array_unique($months);
             
-            $max=0;
-            foreach($tempArray2 as $sub){
-                $max=$max>(count($sub))?$max:(count($sub));
-            }
-            foreach($tempArray2 as $i=>$sub){
+        //     $max=0;
+        //     foreach($tempArray2 as $sub){
+        //         $max=$max>(count($sub))?$max:(count($sub));
+        //     }
+        //     foreach($tempArray2 as $i=>$sub){
 
-                $tempArray2[$i]=(array_pad($sub,-$max,0));
+        //         $tempArray2[$i]=(array_pad($sub,-$max,0));
                 
-            }
+        //     }
             // dd($lineGraph,$tempArray2,$months);
-            $finalLineGraph=$tempArray2;
-            $finalLineGraphLabel=$months;
+            $finalLineGraph=$finalLineGraphtemp[1];
+            $finalLineGraphLabel=$finalLineGraphtemp[0];
             // dd($finalLineGraph);
 
   
