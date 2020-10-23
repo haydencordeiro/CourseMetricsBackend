@@ -85,16 +85,41 @@ class StudentHomeController extends Controller
         // dd($lineGraph);
 
         $tempArray=array('coa','am-2');
+        $tempArray2=array();
+        $months=array();
         foreach($lineGraph as $subject ){
-            // if (in_array(, $people))
-            // {
-            // echo "Match found";
-            // }
 
-        }
+            $tempArray2[$subject->c]=array();
 
+            }
+            foreach($lineGraph as $subject ){
+
+                array_push($tempArray2[$subject->c],$subject->cnt);
+                array_push($months,$subject->mon);
+                
+            }
+            $months=array_unique($months);
+            
+            $max=0;
+            foreach($tempArray2 as $sub){
+                $max=$max>(count($sub))?$max:(count($sub));
+            }
+            foreach($tempArray2 as $i=>$sub){
+
+                $tempArray2[$i]=(array_pad($sub,-$max,0));
+                
+            }
+            // dd($lineGraph,$tempArray2,$months);
+            $finalLineGraph=$tempArray2;
+            $finalLineGraphLabel=$months;
+            // dd($finalLineGraph);
+
+  
+        
+// SELECT SubjectName FROM Subject WHERE Sem=(SELECT Student.Sem FROM Student WHERE UID=1)
         return view('studentHome',['UpcomingActivites'=>$UActivities,'AllSubjects'=>$AllSubjects,
-        'graph1Labels'=>$graph1Labels,'graph1Marks'=>$graph1Marks]);
+        'graph1Labels'=>$graph1Labels,'graph1Marks'=>$graph1Marks,
+        'finalLineGraph'=>$finalLineGraph,'finalLineGraphLabel'=>$finalLineGraphLabel]);
     }
     // NoOfLec
     // LectureNo

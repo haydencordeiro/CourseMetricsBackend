@@ -221,33 +221,36 @@
         options: options
     });
 
+    var lable2= {!! json_encode($finalLineGraphLabel ) !!};
+    var graph2Marks= {!! json_encode($finalLineGraph ) !!};
+       keysD=(Object.keys(graph2Marks));
+       dataset2=[]
+    colors=[ "#4098FE",
+                    "#FF5370",
+                    "#FFB64D",
+                    "#2ED8B6",
+                    "lightsalmon",]
+    for(var i=0;i<keysD.length;i++){
+        dataset2.push({
+    data: graph2Marks[keysD[i]],
+    label: keysD[i],
+    borderColor: colors[i],
+    fill: false
+    })
+
+    }
+    console.log(dataset2);
     //Code for Line Chart
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-            datasets: [{
-                data: [86, 80, 75, 78, 60],
-                label: "MP",
-                borderColor: "#3e95cd",
-                fill: false
-            }, {
-                data: [90, 95, 100, 88, 81],
-                label: "CN",
-                borderColor: "#8e5ea2",
-                fill: false
-            }, {
-                data: [76, 87, 83, 80, 89],
-                label: "TCS",
-                borderColor: "#3cba9f",
-                fill: false
-            },
-            ]
+            labels: lable2,
+            datasets: dataset2
         },
         options: {
             title: {
                 display: true,
-                text: 'World population per region (in millions)',
+                text: 'Attendance',
                 responsive: true,
             },
 
