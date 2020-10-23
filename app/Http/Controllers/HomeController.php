@@ -26,16 +26,26 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $id = Auth::id();
-        $teacher="SELECT count(*) c FROM `Teacher` 
-        WHERE Uid=$id";
-        $teacher=DB::select($teacher);
-        // dd($teacher);
-        if($teacher[0]->c!=0){
-            return '/teacher';
+        $verifiedNo="Select Verified from users where id=$id";
+        $verifiedNo=DB::select($verifiedNo);
+        // dd($teacher[0]->c);
+        if($verifiedNo[0]->Verified==2){
+            return redirect()->route('teacherHome');
+
+        }
+        else if($verifiedNo[0]->Verified==3){
+            return redirect()->route('adminHome');
+
+}
+        else if($verifiedNo[0]->Verified==4){
+            return redirect()->route('studentChapterHome');
+
+           
+
         }
         else{
+            return redirect()->route('studentHome');
 
-            return '/student';
         }
         // return view('home');
     }
