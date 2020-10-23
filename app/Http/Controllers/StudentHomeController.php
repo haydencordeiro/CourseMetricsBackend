@@ -30,7 +30,8 @@ class StudentHomeController extends Controller
         // dd($AllSubjects);
 
         // Pie Chart (Graph 1)
-        $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName) join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
+        $graph1="SELECT *,Avg(Marks) mks FROM (select * from Marks as m JOIN Subject as s on(m.SubFk=s.SubjectName)
+         join Exams as e on (e.id=m.ExamFk) WHERE m.SFK= $id) a group by ExamFk ";
         $graph1=DB::select($graph1);
         $graph1Labels=array();
         $graph1Marks=array();
@@ -46,7 +47,7 @@ class StudentHomeController extends Controller
         // Line Graph;
         $line1=array();
         $line2=array();
-        $lineGraph="SELECT date,SubFK,Count(*) c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK";
+        $lineGraph="SELECT date,SubFK,Count(date) c FROM `Attendance` WHERE Present=1 GROUP by Month(date),SubFK;";
         $lineGraph=DB::select($lineGraph);
         dd($lineGraph);
 

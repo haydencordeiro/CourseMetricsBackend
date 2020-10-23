@@ -169,10 +169,10 @@ class TeacherController extends Controller
         
         //    $marksDistribution='SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,Min(Marks) min FROM Marks where Marks.SubFk="coa" AND Marks.ExamFk="3"';
         //    $marksDistribution=DB::select($marksDistribution);
-           Cache::remember('attendanceForm.marksDistribution', 5, function() use ($subjSelect) {
+           Cache::remember('attendanceForm.marksDistribution', 5, function() use ($subjSelect,$examSelect) {
 
-            $marksDistribution="SELECT MAX(Marks) max,Round(AVG(Marks)) avg ,
-            Min(Marks) min FROM Marks where Marks.SubFk='$subjSelect' AND Marks.ExamFk=1";
+            $marksDistribution="SELECT MAX(Marks) max,Round(AVG(Marks)) avg , Min(Marks) min FROM Marks where Marks.SubFk='$subjSelect' 
+            AND Marks.ExamFk=(SELECT Exams.id FROM Exams WHERE Name='$examSelect')";
            $marksDistribution=DB::select($marksDistribution);
             return $marksDistribution;
          });
