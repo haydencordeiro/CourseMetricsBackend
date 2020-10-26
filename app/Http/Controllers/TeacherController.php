@@ -294,6 +294,102 @@ class TeacherController extends Controller
         
     }
     
+    public function MarksForm(){
+        // $user = Auth::user();
+        
+        $id = Auth::id();
+        $semList=Cache::remember("attendanceForm.semList {$id}", 5, function() use ($id) {
+            $semList="SELECT Distinct sem from Subject where TFk=$id;";
+            $semList=DB::select($semList);
+            return $semList;
+         });
+        // $semList=Cache::get( 'attendanceForm.semList' );
 
 
+        $subjectList=Cache::remember("attendanceForm.subjectList {$id}", 5, function() use ($id) {
+            $subjectList="Select * from Subject where TFk=$id;";
+            $subjectList=DB::select($subjectList);
+            return $subjectList;
+         });
+
+         $examList="SELECT * FROM `Exams`";
+         $examList=DB::select($examList);
+        // $subjectList=Cache::get( 'attendanceForm.subjectList' );
+
+
+        // dd('here');
+        return view('MarksForm',['semList'=>$semList,'allStudent'=>array(),'subjectList'=>$subjectList,'examList'=>$examList]);
+    }
+
+    public function marksFormPost(Request $request){
+        // $user = Auth::user();
+        $id = Auth::id();
+
+        $examList="SELECT * FROM `Exams`";
+        $examList=DB::select($examList);
+        $checkWhich=$request->input('checkWhich');
+        // dd($checkWhich);marksFormPost
+
+        $semList=Cache::remember("attendanceForm.semList {$id}", 5, function() use ($id) {
+            $semList="SELECT Distinct sem from Subject where TFk=$id;";
+            $semList=DB::select($semList);
+            return $semList;
+         });
+        // $semList=Cache::get( 'attendanceForm.semList' );
+
+
+        $subjectList=Cache::remember("attendanceForm.subjectList {$id}", 5, function() use ($id) {
+            $subjectList="Select * from Subject where TFk=$id;";
+            $subjectList=DB::select($subjectList);
+            return $subjectList;
+         });
+        // $subjectList=Cache::get( 'attendanceForm.subjectList' );
+
+
+
+        $semSelect=$request->input('semSelect');
+        $deptSelect=$request->input('deptSelect');
+        $classSelect=$request->input('classSelect');
+  
+        
+        $allStudent="SELECT rollNo,fname,lname,UID FROM Student
+        join users
+        on Student.UID=users.id
+        WHERE sem=$semSelect and class='$classSelect' and Student.Dept='$deptSelect' order by rollNo";
+         $allStudent=DB::select($allStudent);
+        //  dd($allStudent);
+
+
+        //second function here
+        if($checkWhich=="Atten"){
+            $ids=$request->input('studentIds');
+            $ids =json_decode($ids, true);
+
+            // dd($marks);
+            $exam=$request->input('examSelect');
+
+            $subjSelect=$request->input('subjSelect');
+            
+
+            $selectList=array();
+            foreach($ids as $id){
+                
+                array_push($selectList,$id);    
+            }
+    
+            //taking all student and comparing with the ones required to be marked absent if no then present=1 else present=0
+            
+            foreach($allStudent as $i=>$student){
+            
+                        $temp="INSERT INTO `Marks` (`Marks`, `SFK`, `SubFk`, `ExamFk`) VALUES ($selectList[$i], $student->UID, '$subjSelect', $exam);";
+                        $temp=DB::statement($temp);
+                        
+  
+
+             }
+        }
+         return view('marksForm',['semList'=>$semList,'allStudent'=>$allStudent,'subjectList'=>$subjectList,'examList'=>$examList]);
+
+        
+    }
 }

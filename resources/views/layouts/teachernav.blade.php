@@ -33,7 +33,8 @@
                 Marks Analysis</button></a>
                 <a href="{{route('attendanceForm')}}"><button class="{{(\Request::route()->getName() == 'attendanceForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
                     Attendance Form</button></a>
-        
+                    <a href="{{route('MarksForm')}}"><button class="{{(\Request::route()->getName() == 'MarksForm')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-paperclip"></i>
+                        Add Marks</button></a>
             <div>
 
                 <a href="javascipt:void(0)" class="closebtn">
