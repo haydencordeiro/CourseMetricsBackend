@@ -44,8 +44,8 @@ Route::get('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegi
 Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');
 
 //Student Chapter
-Route::get('/studentChapter', [App\Http\Controllers\studentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
-Route::post('/studentChapter', [App\Http\Controllers\studentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
+Route::get('/studentChapter', [App\Http\Controllers\StudentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
+Route::post('/studentChapter', [App\Http\Controllers\StudentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
 
 
 //home
