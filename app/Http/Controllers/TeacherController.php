@@ -318,7 +318,7 @@ class TeacherController extends Controller
 
 
         // dd('here');
-        return view('marksForm',['semList'=>$semList,'allStudent'=>array(),'subjectList'=>$subjectList,'examList'=>$examList]);
+        return view('MarksForm',['semList'=>$semList,'allStudent'=>array(),'subjectList'=>$subjectList,'examList'=>$examList]);
     }
 
     public function marksFormPost(Request $request){
@@ -388,7 +388,7 @@ class TeacherController extends Controller
 
              }
         }
-         return view('marksForm',['semList'=>$semList,'allStudent'=>$allStudent,'subjectList'=>$subjectList,'examList'=>$examList]);
+         return view('MarksForm',['semList'=>$semList,'allStudent'=>$allStudent,'subjectList'=>$subjectList,'examList'=>$examList]);
 
         
     }
