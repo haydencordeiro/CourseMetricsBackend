@@ -38,6 +38,9 @@ Route::get('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])
 Route::post('/admin', [App\Http\Controllers\adminController::class, 'adminHome'])->middleware('auth')->name('adminHome');
 Route::get('/adminAddTeacher', [App\Http\Controllers\adminController::class, 'AddTeacher'])->middleware('auth')->name('AddTeacher');
 Route::post('/adminAddTeacher', [App\Http\Controllers\adminController::class, 'AddTeacher'])->middleware('auth')->name('AddTeacher');
+Route::get('/adminSubject', [App\Http\Controllers\adminController::class, 'Subject'])->middleware('auth')->name('adminSubject');
+Route::post('/adminSubject', [App\Http\Controllers\adminController::class, 'Subject'])->middleware('auth')->name('adminSubject');
+Route::get('/adminDelSubject/{id}', [App\Http\Controllers\adminController::class, 'DelSubject'])->middleware('auth')->name('DelSubject');
 
 //Custom Regiser
 Route::get('/register', [App\Http\Controllers\CustomRegister::class, 'CustomRegister'])->name('register');

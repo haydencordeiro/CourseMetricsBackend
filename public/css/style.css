@@ -654,6 +654,13 @@ ul.breadcrumb li a:hover {
         width: 100%;
         margin: 0.5rem;
     }
+
+    .TeachersCustomDropDown {
+        position: relative;
+        top: 0;
+        left: 100px !important;
+        min-width: 78%;
+    }
 }
 
 .attendanceTable {
@@ -978,4 +985,11 @@ td {
     min-width: 160px;
     width: 40%;
     margin: 0 4%;
+}
+
+.TeachersCustomDropDown {
+    position: relative;
+    top: 0;
+    left: 255px;
+    min-width: 71%;
 }
