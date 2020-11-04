@@ -26,13 +26,9 @@
         <a href="{{route('adminHome')}}"><button class="{{(\Request::route()->getName() == 'adminHome')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
                 Student Confirm</button></a>
         <a href="{{route('AddTeacher')}}"><button class="{{(\Request::route()->getName() == 'AddTeacher')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
-<<<<<<< HEAD
-                Add Teachers</button></a>
-=======
             Add Teachers</button></a>
             <a href="{{route('adminSubject')}}"><button class="{{(\Request::route()->getName() == 'adminSubject')  ? 'sidenav-active-link' : '' }}"><i class=" fa fa-line-chart"></i>
             Add Subject</button></a>
->>>>>>> 09383834b291ec202d1918661f3ebc0b831311ee
 
 
             
