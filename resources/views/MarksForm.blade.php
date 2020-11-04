@@ -150,7 +150,7 @@
         </div>
     </div> --}}
     <div>
-        <button onclick="onlySearch();">Go</button>
+        <button class="dropbtn btn-success" onclick="onlySearch();">Go</button>
     </div>
     
     <!-- <div style="flex: 0 0 40%;margin-right: 3%;margin-top:2%;">
@@ -182,7 +182,7 @@
         </div> --}}
         <div style="margin-top: 1.5%;">
             <div class="dropdown">
-                <button class="dropbtn btn-danger" onclick="getSelected();">Absent</button>
+                <button class="dropbtn btn-success" onclick="getSelected();">Add Marks</button>
             </div>
         </div>
     </div>
