@@ -87,4 +87,28 @@ class adminController extends Controller
             return view('add_teacher');
 
     }
+    public function Subject(Request $request){
+        $teachers="select fname,lname,uid from Teacher join users on (Teacher.UID=users.id)";
+        $teachers=DB::select($teachers);
+        $SubjectNames="select fname,lname,CID,SubjectName from Subject join users on (Subject.TFk=users.id)";
+        $SubjectNames=DB::select($SubjectNames);
+        // dd($SubjectNames);
+
+        if($request->isMethod('post')){
+            $SubjectName=$request->input('sName');
+            $CID=$request->input('courseID');
+            $Tfk=$request->input('tfk');
+            $sem=$request->input('sem');
+            $insertSubject="INSERT INTO `Subject` (SubjectName, CID, TFk, LectureNo,Sem) VALUES ('$SubjectName', '$CID', $Tfk, 0 , $sem)";
+            $insertSubject=DB::select($insertSubject);
+        }
+
+        return view('AdminSubject',['teachers'=>$teachers,'SubjectNames'=>$SubjectNames]);
+    }
+
+    public function DelSubject(Request $request,$id){
+        $deleteSubject="DELETE FROM `Subject` WHERE `Subject`.`CID` = $id";
+        $deleteSubject=DB::statement($deleteSubject);
+        return redirect('/adminSubject');
+    }
 }
