@@ -11,7 +11,7 @@ class StudentChapter extends Controller
     //
     public function studentChapterHome(Request $request){
         $id = Auth::id();
-        $allEvents="SELECT UFK,Price,Description,Date,Link,fname,lname,email FROM upcomingevents JOIN users on(users.id=upcomingevents.UFK)
+        $allEvents="SELECT * FROM upcomingevents JOIN users on(users.id=upcomingevents.UFK)
         where UFK=$id;";
         $allEvents=DB::select($allEvents);
     // dd($allEvents);
@@ -21,9 +21,9 @@ class StudentChapter extends Controller
             $link=$request->input('link');
             $date=$request->input('date');
             $insertData="INSERT INTO `upcomingevents` (`id`, `Price`, `Description`, `Date`, `Link`, `UFK`) 
-            VALUES (NULL, '12', $price, '$date', '$link', $id);";
+            VALUES (NULL,  $price,'$title', '$date', '$link', $id);";
             $insertData=DB::statement($insertData);
-            $allEvents="SELECT UFK,Price,Description,Date,Link,fname,lname,email FROM upcomingevents JOIN users on(users.id=upcomingevents.UFK)
+            $allEvents="SELECT * FROM upcomingevents JOIN users on(users.id=upcomingevents.UFK)
             where UFK=$id;";
             $allEvents=DB::select($allEvents);
 
@@ -33,4 +33,5 @@ class StudentChapter extends Controller
 
 
     }
+
 }

@@ -147,7 +147,7 @@
         </div>
     </div> --}}
     <div>
-        <button >Add</button>
+        <button class="dropbtn btn-success" >Add</button>
     </div>
     
     <!-- <div style="flex: 0 0 40%;margin-right: 3%;margin-top:2%;">
@@ -200,6 +200,7 @@
                 <td>{{$event->Price}}</td>
                 <td>{{$event->Date}}</td>
                 <td>  <a href="{{$event->Link}}">Link</a></td>
+ 
             </tr>
 
             @endforeach

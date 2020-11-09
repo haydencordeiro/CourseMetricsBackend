@@ -49,6 +49,7 @@ Route::post('/register', [App\Http\Controllers\CustomRegister::class, 'CustomReg
 //Student Chapter
 Route::get('/studentChapter', [App\Http\Controllers\StudentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
 Route::post('/studentChapter', [App\Http\Controllers\StudentChapter::class, 'studentChapterHome'])->middleware('auth')->name('studentChapterHome');
+// Route::post('/deleteEvent', [App\Http\Controllers\StudentChapter::class, 'deleteEvent'])->middleware('auth')->name('deleteEvent');
 
 
 //home
