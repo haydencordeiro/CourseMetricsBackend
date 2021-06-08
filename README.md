@@ -1,25 +1,28 @@
 # Course Metrics
+
 ## Table of Contents
 
-- [About](#members)
-- [Abstract](#abstract)
-- [Description](#description)
-- [Modules](#modules)
-- [Screenshots](#description)
+-   [About](#members)
+-   [Abstract](#abstract)
+-   [Description](#description)
+-   [Modules](#modules)
+-   [Screenshots](#description)
 
 ## Members <a name = "members"></a>
+
 1. Grejo Joby
 2. Hayden Cordeiro
 3. Manasi Anantpurkar
 
 ## Abstract <a name = "abstract"></a>
+
 A management information system (MIS) is an information system used for decision-making, and for the coordination, control, analysis, and visualization of information in an organization.
 The study of the management information systems involves people, processes and technology in an organizational context.
 The ultimate goal of the use of a management information system is to increase the value of the organisation. This is done by providing timely and appropriate information allowing them to make effective decisions within a shorter period of time.
 
 ## Description <a name = "description"></a>
 
-The main objective of the project is to take the conventional MIS system  to a much more modular and interactive level by adding attractive dashboard designs, Infographics for the reports and analysis, charts and graphs for displaying information and many more. This would increase the user interactivity and usability and help the user to push and fetch data easily.
+The main objective of the project is to take the conventional MIS system to a much more modular and interactive level by adding attractive dashboard designs, Infographics for the reports and analysis, charts and graphs for displaying information and many more. This would increase the user interactivity and usability and help the user to push and fetch data easily.
 Our focus is on an Educational MIS [3] and main users would be teachers and students. There will be separate logins for different types of users and the respective data would be displayed.
 
 ## Modules <a name = "modules"></a>
@@ -46,3 +49,14 @@ The data of users, their information and other data generated in the website nee
 
 ## Screenshots <a name = "screenshots"></a>
 
+![screenshots](/screenshots/admin_add_subject.jpg?raw=true)  
+![screenshots](/screenshots/admin_add_teachers.jpg?raw=true)  
+![screenshots](/screenshots/admin_confirm_students.jpg?raw=true)  
+![screenshots](/screenshots/login_page.jpg?raw=true)
+![screenshots](/screenshots/sign_up_page.jpg?raw=true)
+![screenshots](/screenshots/student_attendance.jpg?raw=true)  
+![screenshots](/screenshots/student_chapter_add_event.bmp?raw=true)
+![screenshots](/screenshots/student_dashboard.jpg?raw=true)  
+![screenshots](/screenshots/teacher_add_attendance.jpg?raw=true)  
+![screenshots](/screenshots/teacher_add_marks.jpg?raw=true)  
+![screenshots](/screenshots/teacher_marks.jpg?raw=true)
