@@ -1,61 +1,38 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Course Metrics
+## Members
+1. Grejo Joby
+2. Hayden Cordeiro
+3. Manasi Anantpurkar
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Abstract
+A management information system (MIS) is an information system used for decision-making, and for the coordination, control, analysis, and visualization of information in an organization.
+The study of the management information systems involves people, processes and technology in an organizational context.
+The ultimate goal of the use of a management information system is to increase the value of the organisation. This is done by providing timely and appropriate information allowing them to make effective decisions within a shorter period of time.
 
-## About Laravel
+## Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The main objective of the project is to take the conventional MIS system  to a much more modular and interactive level by adding attractive dashboard designs, Infographics for the reports and analysis, charts and graphs for displaying information and many more. This would increase the user interactivity and usability and help the user to push and fetch data easily.
+Our focus is on an Educational MIS [3] and main users would be teachers and students. There will be separate logins for different types of users and the respective data would be displayed.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Modules
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Dashboard**
 
-## Learning Laravel
+The dashboard would be the screen to visualize the whole system. The student, teacher and admin logins would be different. The users can see the reports, graphs, charts, and other information regarding their data.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Attendance/Marks Analysis and Visualisation**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The attendance and marks can be added by teachers and seen by the students. There would be analysis done on the attendance and marks and also suggest the student for ways to improve their score. The teachers and students can also visualize the attendance and marks trends in various hours, exams, subjects and classes.
 
-## Laravel Sponsors
+3. **Login Validation**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+There would be different types of users who use the system from administrators, teachers to students. So the login validations would be done. Registration and login systems would be included.
 
-### Premium Partners
+4. **Infographics**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+The data visualisation is a key feature added in our system. The conventional way of displaying all data in tables and text is being upgraded to modern graphs, charts and other infographic display components .
 
-## Contributing
+5. **Database and Data Storage**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The data of users, their information and other data generated in the website needs to be stored securely. And hence, we need to apply database concepts and data storage techniques to store this information.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
